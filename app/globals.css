@@ -2,26 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  * {
+    font-family: 'AT Surt';
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@font-face {
+  font-family: 'AT Surt';
+  src: url('https://cdn.shopify.com/s/files/1/0172/4383/2374/files/AT-Surt-Regular.woff2?v=1679587622')
+    format('woff2');
+  font-weight: 400; /* Regular */
+}
+@font-face {
+  font-family: 'AT Surt';
+  src: url('https://cdn.shopify.com/s/files/1/0172/4383/2374/files/AT_Surt_Medium.otf?v=1679587639')
+    format('opentype');
+  font-weight: 500; /* Medium */
+}
+@font-face {
+  font-family: 'AT Surt';
+  src: url('https://cdn.shopify.com/s/files/1/0172/4383/2374/files/AT-Surt-SemiBold.woff2?v=1679587633')
+    format('woff2');
+  font-weight: 700; /* Bold */
 }

@@ -1,0 +1,6 @@
+.outlined-input input:not(:placeholder-shown) + label {
+  top: 0%;
+  font-size: 12px;
+  transform: translateY(-50%);
+  background-color: white;
+}
