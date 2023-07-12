@@ -1,5 +1,4 @@
-import NextLink from 'next/link'
-import { PropsWithChildren } from 'react'
+import React, { PropsWithChildren } from 'react'
 import Button from './Button'
 
 type BottomProps = {
@@ -20,7 +19,7 @@ export default function BottomAction({
 >) {
   return (
     <div
-      className='flex fixed bottom-0 w-full justify-evenly p-4 md:max-w-sm md:left-1/2 md:-translate-x-1/2 md:border-x'
+      className='fixed bottom-0 flex w-full p-4 justify-evenly md:max-w-sm md:left-1/2 md:-translate-x-1/2 md:border-x'
       style={{
         boxShadow:
           '0px -4px 8px -2px rgba(42, 34, 31, 0.10), 0px -2px 4px -2px rgba(42, 34, 31, 0.06)'
@@ -29,7 +28,7 @@ export default function BottomAction({
       {href ? (
         <Button
           variant='primary'
-          className='w-full border border-black rounded-full p-4 leading-none font-bold'
+          className='w-full p-4 font-bold leading-none border border-black rounded-full'
           href={href}
           {...other}
         >
@@ -38,7 +37,7 @@ export default function BottomAction({
       ) : (
         <Button
           variant='primary'
-          className='w-full border border-black rounded-full p-4 leading-none font-bold'
+          className='w-full p-4 font-bold leading-none border border-black rounded-full'
           onClick={onClick}
           isLoading={isLoading}
           {...other}

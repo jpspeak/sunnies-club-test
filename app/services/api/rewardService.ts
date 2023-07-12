@@ -23,4 +23,5 @@ const getReward = (id: string) => apiClient.get<RewardItem>(`/rewards/${id}`)
 const redeemReward = (id: string) =>
   apiClient.post<RedeemResult>(`/rewards/${id}/redeem`)
 
-export default { getRewards, getReward, redeemReward }
+const rewardService = { getRewards, getReward, redeemReward }
+export default rewardService

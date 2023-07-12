@@ -20,7 +20,7 @@ export default function BottomNavbar() {
     { label: 'Account', pathname: '/account', icon: AccountIcon }
   ]
   useEffect(() => {
-    let eventSource = new EventSource(
+    const eventSource = new EventSource(
       `${process.env.NEXT_PUBLIC_API_SERVER_URL}/notifications/stream`,
       {
         withCredentials: true
@@ -35,10 +35,11 @@ export default function BottomNavbar() {
     return () => {
       eventSource.close()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    <nav className='border-t border-neutral flex fixed bg-white bottom-0 w-full justify-evenly md:max-w-sm md:left-1/2 md:-translate-x-1/2 md:border-x'>
+    <nav className='fixed bottom-0 flex w-full bg-white border-t border-neutral justify-evenly md:max-w-sm md:left-1/2 md:-translate-x-1/2 md:border-x'>
       {navs.map((nav) => {
         const Icon = nav.icon
         const isActive = pathname === nav.pathname
@@ -53,7 +54,7 @@ export default function BottomNavbar() {
             <Icon />
             <span className='pt-[6px] leading-none'>{nav.label}</span>
             {nav.hasNotif && hasUnread ? (
-              <NotifBadge className=' absolute top-1/2 left-4 -translate-y-1/2' />
+              <NotifBadge className='absolute -translate-y-1/2 top-1/2 left-4' />
             ) : null}
           </Link>
         )

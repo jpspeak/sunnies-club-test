@@ -6,4 +6,5 @@ const sendOTP = (formdata: { email: string }) =>
 const verifyOTP = (formdata: { otp: string }) =>
   apiClient.post('/email-verification/otp/verify', formdata)
 
-export default { sendOTP, verifyOTP }
+const emailVerificationService = { sendOTP, verifyOTP }
+export default emailVerificationService

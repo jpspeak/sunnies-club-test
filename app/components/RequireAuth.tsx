@@ -1,7 +1,7 @@
 'use client'
 
-import { PropsWithChildren, useEffect, useState } from 'react'
-import { redirect, usePathname, useRouter } from 'next/navigation'
+import React, { PropsWithChildren, useEffect, useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import authService from '../services/api/authService'
 import useAuthStore from '../hooks/useAuthStore'
 
@@ -31,6 +31,7 @@ export default function RequireAuth({
       }
     }
     fetchUser()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   if (isLoading) return <>Loading...</>

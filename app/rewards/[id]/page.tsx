@@ -8,7 +8,6 @@ import Modal from '@/app/components/ui/Modal'
 import TopBar from '@/app/components/ui/TopBar'
 import useModal from '@/app/hooks/useModa'
 import useUser from '@/app/hooks/useUser'
-import { MyRewardItem } from '@/app/services/api/myRewardService'
 import rewardService, {
   RedeemResult,
   RewardItem

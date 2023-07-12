@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import Image from 'next/image'
 import useUser from './hooks/useUser'
 import star from '@/app/assets/icons/star.svg'

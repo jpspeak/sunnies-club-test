@@ -38,7 +38,7 @@ export default function Add() {
       <TopBar title='Add email address' showBackNav />
       <MainContainer>
         <div className='px-4 md:px-0'>
-          <h1 className=' text-2xl'>Add secondary email</h1>
+          <h1 className='text-2xl '>Add secondary email</h1>
           <h2 className='text-sm'>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry.

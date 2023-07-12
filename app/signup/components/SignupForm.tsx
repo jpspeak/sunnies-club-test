@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import Button from '@/app/components/ui/Button'
 import DateInput from '@/app/components/ui/DateInput'
 import Input from '@/app/components/ui/Input'
@@ -11,8 +12,6 @@ import { useState } from 'react'
 import Alert from '@/app/components/ui/Alert'
 import MainContainer from '@/app/components/ui/MainContainer'
 import Center from '@/app/components/ui/Center'
-import logo from '@/app/assets/icons/logo.svg'
-import Image from 'next/image'
 import LogoIcon from '@/app/components/ui/Icons/LogoIcon'
 
 type Inputs = {
@@ -68,7 +67,7 @@ const Signup = () => {
               Account created successfully! Please check your email to confirm.
             </Alert>
             <Center>
-              <Link href='/signin' className='underline mt-10'>
+              <Link href='/signin' className='mt-10 underline'>
                 Log in
               </Link>
             </Center>
@@ -76,10 +75,10 @@ const Signup = () => {
         ) : (
           <>
             <LogoIcon className='h-[60px] mt-[60px] text-soft-black-700 mx-auto' />
-            <h1 className='text-lg font-bold text-center text-soft-black-700 mt-6'>
+            <h1 className='mt-6 text-lg font-bold text-center text-soft-black-700'>
               JOIN THE CLUB
             </h1>
-            <p className='text-sm text-center text-gray-neutral-500 mt-2'>
+            <p className='mt-2 text-sm text-center text-gray-neutral-500'>
               Create an account to start earning points and unlock exclusive
               access to launches and events.
             </p>
@@ -148,7 +147,7 @@ const Signup = () => {
                 {isSubmitting ? '...' : 'SIGN UP'}
               </Button>
             </form>
-            <p className='text-center mt-3 text-gray-neutral-500'>
+            <p className='mt-3 text-center text-gray-neutral-500'>
               Already have an account?{` `}
               <Link href='/signin' className='underline'>
                 Log In

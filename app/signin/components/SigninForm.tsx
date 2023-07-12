@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import Button from '@/app/components/ui/Button'
 import Input from '@/app/components/ui/Input'
 import PasswordInput from '@/app/components/ui/PasswordInput'
@@ -50,10 +51,10 @@ export default function SigninForm() {
     <MainContainer>
       <div className='w-full px-4'>
         <LogoIcon className='h-[60px] mt-[60px] text-soft-black-700 mx-auto' />
-        <h1 className='text-lg font-bold text-center text-soft-black-700 mt-6'>
+        <h1 className='mt-6 text-lg font-bold text-center text-soft-black-700'>
           GOOD TO SEE YOU AGAIN
         </h1>
-        <p className='text-sm text-center text-gray-neutral-500 mt-2'>
+        <p className='mt-2 text-sm text-center text-gray-neutral-500'>
           Log in to access your account.
         </p>
         {signinError && <Alert className='mt-4'>{signinError}</Alert>}
@@ -84,8 +85,8 @@ export default function SigninForm() {
             {isSubmitting ? '...' : 'LOG IN'}
           </Button>
         </form>
-        <p className='text-center mt-3 text-gray-neutral-500'>
-          Don't have an account?{` `}
+        <p className='mt-3 text-center text-gray-neutral-500'>
+          Don&apos;t have an account?{` `}
           <Link href='/signup' className='underline'>
             Sign up
           </Link>

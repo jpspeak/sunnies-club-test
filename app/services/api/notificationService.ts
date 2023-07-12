@@ -16,4 +16,5 @@ const getNotification = (id: string) =>
 const readNotif = (id: string) =>
   apiClient.post<NotificationItem>(`/notifications/${id}/read`)
 
-export default { getNotifications, getNotification, readNotif }
+const notificationService = { getNotifications, getNotification, readNotif }
+export default notificationService

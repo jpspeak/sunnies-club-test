@@ -24,4 +24,5 @@ const getMyReward = (id: string) =>
 const useMyReward = (id: string) =>
   apiClient.post<MyRewardItem>(`/my-rewards/${id}/use`)
 
-export default { getMyRewards, getMyReward, useMyReward }
+const myRewardService = { getMyRewards, getMyReward, useMyReward }
+export default myRewardService

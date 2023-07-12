@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import React, { PropsWithChildren } from 'react'
 import ReactDOM from 'react-dom'
 
 export default function Modal({
@@ -10,7 +10,10 @@ export default function Modal({
     return null
   }
   return ReactDOM.createPortal(
-    <div className='fixed top-0 left-0 w-full h-full px-4 overflow-auto bg-black z-[2] bg-opacity-[0.4]'>
+    <div
+      className='fixed top-0 left-0 w-full h-full px-4 overflow-auto bg-black z-[2] bg-opacity-[0.4]'
+      onClick={onClose}
+    >
       <div className='bg-white mt-[15%] mx-auto px-4 py-10 rounded-xl'>
         {children}
       </div>

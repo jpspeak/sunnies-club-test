@@ -1,10 +1,8 @@
 'use client'
 
+import React from 'react'
 import StarIcon from '@/app/components/ui/Icons/StarIcon'
 import useUser from '@/app/hooks/useUser'
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-
 export default function UserPoints() {
   const { user } = useUser()
 

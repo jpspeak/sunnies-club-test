@@ -1,12 +1,10 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import useNotifications from '@/app/hooks/useNotifications'
-import formatDate from '@/app/utils/formatDate'
 import NotifBadge from '@/app/components/ui/NotifBadge'
 import Link from 'next/link'
 import timeAgo from '@/app/utils/timeAgo'
-import { DateInput } from 'javascript-time-ago'
 
 export default function InboxList() {
   const { notifs, isLoadingNotifs, errorNotifs } = useNotifications()

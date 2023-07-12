@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import TopBar from '@/app/components/ui/TopBar'
 import BottomAction from '@/app/components/ui/BottomAction'
 import MainContainer from '@/app/components/ui/MainContainer'
@@ -15,7 +16,7 @@ export default function EmailAddress() {
       <TopBar title='Email address' showBackNav />
       <MainContainer>
         <div className='px-4 md:px-0'>
-          <h1 className=' text-2xl'>Email address</h1>
+          <h1 className='text-2xl '>Email address</h1>
           <h2 className='text-sm'>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry.

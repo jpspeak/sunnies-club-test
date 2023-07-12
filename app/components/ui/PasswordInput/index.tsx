@@ -1,6 +1,11 @@
 'use client'
 
-import { LegacyRef, PropsWithChildren, forwardRef, useState } from 'react'
+import React, {
+  LegacyRef,
+  PropsWithChildren,
+  forwardRef,
+  useState
+} from 'react'
 import './style.css'
 
 type PasswordInputProps = {

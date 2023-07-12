@@ -21,8 +21,8 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401) {
       try {
         await authService.refreshToken()
-        return apiClient(originalRequest)
-      } catch (error) {}
+        return await apiClient(originalRequest)
+      } catch (refreshError: any) {}
     }
     return Promise.reject(error)
   }

@@ -10,7 +10,7 @@ import myRewardService, {
 import formatDate from '@/app/utils/formatDate'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
-import React, { useState } from 'react'
+import React from 'react'
 import useSWR from 'swr'
 
 export default function MyReward() {

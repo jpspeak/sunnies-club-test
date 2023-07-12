@@ -1,5 +1,6 @@
 'use client'
 
+import React, { useEffect } from 'react'
 import MainContainer from '@/app/components/ui/MainContainer'
 import TopBar from '@/app/components/ui/TopBar'
 import useNotifications from '@/app/hooks/useNotifications'
@@ -7,7 +8,6 @@ import notificationService, {
   NotificationItem
 } from '@/app/services/api/notificationService'
 import { useParams } from 'next/navigation'
-import React, { useEffect } from 'react'
 import useSWR from 'swr'
 
 export default function InboxItem() {
@@ -22,11 +22,12 @@ export default function InboxItem() {
       try {
         await notificationService.readNotif(notifId)
         mutateNotifs()
-      } catch (error) {
+      } catch (notifError) {
         console.log(error)
       }
     }
     markAsRead()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   if (error) return <>Error</>

@@ -3,7 +3,6 @@ import MainContainer from '../components/ui/MainContainer'
 import BottomNavbar from '../components/ui/BottomNavbar'
 import TopBar from '../components/ui/TopBar'
 import RewardList from './components/RewardList'
-import rewardService from '../services/api/rewardService'
 
 // async function getRewards() {
 //   // const { data } = await rewardService.getRewards({ next: { revalidate: 10 } })

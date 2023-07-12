@@ -23,4 +23,5 @@ const signout = () => apiClient.post('/auth/sign-out')
 
 const refreshToken = () => apiClientRefreshToken.post('/auth/refresh-token')
 
-export default { me, signup, signin, signout, refreshToken }
+const authService = { me, signup, signin, signout, refreshToken }
+export default authService

@@ -1,23 +1,21 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import TopBar from '@/app/components/ui/TopBar'
 import BottomAction from '@/app/components/ui/BottomAction'
 import MainContainer from '@/app/components/ui/MainContainer'
 import OTPInput from '@/app/components/ui/OTPInput'
-import { useRouter } from 'next/navigation'
 import emailVerficationService from '@/app/services/api/emailVerficationService'
 import Alert from '@/app/components/ui/Alert'
 
 export default function Verify() {
-  const router = useRouter()
   const [otp, setOTP] = useState('')
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const [verificationSuccess, setVerificationSuccess] = useState(null)
   const [verificationError, setVerificationError] = useState(null)
 
-  const handleOTPInputChange = (otp: string) => {
-    setOTP(otp)
+  const handleOTPInputChange = (value: string) => {
+    setOTP(value)
   }
 
   const handleSubmit = async () => {
@@ -45,7 +43,7 @@ export default function Verify() {
             <Alert className='mt-4'>{verificationSuccess}</Alert>
           ) : (
             <>
-              <h1 className=' text-2xl'>Verify Your Account</h1>
+              <h1 className='text-2xl '>Verify Your Account</h1>
               <h2 className='text-sm'>
                 Verification email sent! To proceed, please find the OTP in your
                 email and enter it below to confirm your account.

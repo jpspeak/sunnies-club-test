@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ChangeEventHandler, useRef, useState } from 'react'
+import React, { ChangeEvent, useRef, useState } from 'react'
 
 export default function OTPInput({
   onChange

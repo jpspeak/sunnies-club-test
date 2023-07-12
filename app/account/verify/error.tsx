@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Alert from '@/app/components/ui/Alert'
 import Link from 'next/link'
 import MainContainer from '@/app/components/ui/MainContainer'

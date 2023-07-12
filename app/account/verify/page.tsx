@@ -1,3 +1,4 @@
+import React from 'react'
 import Alert from '@/app/components/ui/Alert'
 import Center from '@/app/components/ui/Center'
 import MainContainer from '@/app/components/ui/MainContainer'
@@ -32,7 +33,7 @@ export default async function Page({
     <MainContainer>
       <Alert className='mt-4'>{message}</Alert>
       <Center>
-        <Link href='/signin' className='underline mt-10'>
+        <Link href='/signin' className='mt-10 underline'>
           Log in
         </Link>
       </Center>

@@ -1,7 +1,7 @@
-import { PropsWithChildren } from 'react'
+import React, { PropsWithChildren } from 'react'
 
 export default function MainContainer({ children }: PropsWithChildren) {
   return (
-    <div className='container mx-auto max-w-sm min-h-screen'>{children}</div>
+    <div className='container max-w-sm min-h-screen mx-auto'>{children}</div>
   )
 }

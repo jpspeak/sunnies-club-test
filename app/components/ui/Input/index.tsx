@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { LegacyRef, PropsWithChildren, forwardRef } from 'react'
 import './style.css'
 
