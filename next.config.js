@@ -35,6 +35,15 @@ module.exports = withPWA({
       }
     ]
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/dashboard',
+        permanent: true
+      }
+    ]
+  },
   reactStrictMode: false
 })
 
