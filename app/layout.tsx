@@ -5,9 +5,8 @@ import { Inter, Poppins } from 'next/font/google'
 import RequireAuth from './shared/components/RequireAuth'
 import SplashScreen from './shared/components/SplashScreen'
 import AxiosInterceptors from './shared/components/AxiosInterceptors'
-import 'react-toastify/dist/ReactToastify.css'
-import { ToastContainer, Zoom } from 'react-toastify'
 import SSE from './shared/components/SSE'
+import ToastProvider from './shared/components/ToastProvider'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const poppins = Poppins({
@@ -54,32 +53,23 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${inter.variable} ${poppins.variable}`}>
-        <ToastContainer
-          icon={false}
-          theme='colored'
-          hideProgressBar
-          autoClose={3000}
-          position='top-center'
-          closeOnClick
-          pauseOnHover
-          draggable
-          transition={Zoom}
-        />
         <SplashScreen>
-          <AxiosInterceptors>
-            <RequireAuth
-              except={[
-                '/',
-                '/auth',
-                '/account/verify',
-                '/reset-password-verification',
-                '/reset-password'
-              ]}
-            >
-              <SSE />
-              {children}
-            </RequireAuth>
-          </AxiosInterceptors>
+          <ToastProvider>
+            <AxiosInterceptors>
+              <RequireAuth
+                except={[
+                  '/',
+                  '/auth',
+                  '/account/verify',
+                  '/reset-password-verification',
+                  '/reset-password'
+                ]}
+              >
+                <SSE />
+                {children}
+              </RequireAuth>
+            </AxiosInterceptors>
+          </ToastProvider>
         </SplashScreen>
       </body>
     </html>

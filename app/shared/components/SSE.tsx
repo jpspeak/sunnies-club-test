@@ -17,7 +17,6 @@ export default function SSE() {
     })
     eventSource.addEventListener('message', (event) => {
       const { message } = JSON.parse(event.data)
-      console.log(message)
       if (message === 'Earned Points' || message === 'Redeemed Points') {
         mutate('/transactions?limit=10')
         mutate('/auth/user')
