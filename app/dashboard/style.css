@@ -1,0 +1,3 @@
+#megaDealsSwiper > .swiper-wrapper {
+  @apply pb-[5px];
+}

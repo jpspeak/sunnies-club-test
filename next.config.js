@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+// /** @type {import('next').NextConfig} */
 
 // const isDev = process.env.NODE_ENV !== 'production'
 
@@ -26,14 +26,33 @@
 
 // module.exports = withPWA({
 //   // next.js config
+//   images: {
+//     dangerouslyAllowSVG: true,
+//     remotePatterns: [
+//       {
+//         protocol: 'https',
+//         hostname: 'res.cloudinary.com'
+//       },
+//       {
+//         protocol: 'https',
+//         hostname: 'cdn.shopify.com'
+//       }
+//     ]
+//   },
+//   reactStrictMode: false
 // })
 
 module.exports = {
   images: {
+    dangerouslyAllowSVG: true,
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cdn.shopify.com'
+        hostname: 'res.cloudinary.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'umbra-digital.sgp1.digitaloceanspaces.com'
       }
     ]
   },

@@ -1,37 +1,40 @@
 'use client'
 
 import React from 'react'
-import useNotifications from '@/app/hooks/useNotifications'
-import NotifBadge from '@/app/components/ui/NotifBadge'
-import Link from 'next/link'
-import timeAgo from '@/app/utils/timeAgo'
+import timeAgo from '@/app/shared/utils/timeAgo'
+import 'react-loading-skeleton/dist/skeleton.css'
+import { Notifications } from '@/app/shared/services/api/notificationService'
+import { twMerge } from 'tailwind-merge'
 
-export default function InboxList() {
-  const { notifs, isLoadingNotifs, errorNotifs } = useNotifications()
-
-  if (errorNotifs) return <>Error</>
-  if (isLoadingNotifs) return <>Loading...</>
+export default function InboxList({ notifs }: { notifs?: Notifications }) {
   return (
-    <ul className='flex flex-col gap-2'>
+    <ul className='flex flex-col'>
       {notifs?.map((notif) => (
         <li
           key={notif._id}
-          className='relative py-4 border-b-[1px] border-gray-neutral-50'
+          className={twMerge(
+            'relative p-4 border-b-[1px] border-soft-black-100',
+            !notif.isRead && 'bg-red-50'
+          )}
         >
-          <Link href={`/inbox/${notif._id}`}>
-            <time className='block text-xs leading-none text-gray-neutral-200'>
+          <div className='flex items-center gap-1'>
+            {!notif.isRead && (
+              <div className='h-[6px] w-[6px] rounded-full bg-red-700' />
+            )}
+            <time
+              className={twMerge(
+                'block text-xs leading-none text-soft-black-400',
+                !notif.isRead && 'text-soft-black-700 font-bold'
+              )}
+            >
               {timeAgo(new Date(notif.createdAt))}
             </time>
-            <div className='mt-4'>
-              <p className='text-sm truncate text-soft-black-700'>
-                {notif.title}
-              </p>
-              <p className='truncate'>{notif.body}</p>
-            </div>
-            {!notif.isRead ? (
-              <NotifBadge className='absolute -top-0.5 -left-0.5' />
-            ) : null}
-          </Link>
+          </div>
+          <div className='mt-4'>
+            <p className='text-sm leading-normal text-soft-black-700'>
+              {notif.title}
+            </p>
+          </div>
         </li>
       ))}
     </ul>

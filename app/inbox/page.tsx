@@ -1,17 +1,15 @@
 import React from 'react'
-import MainContainer from '../components/ui/MainContainer'
-import BottomNavbar from '../components/ui/BottomNavbar'
-import InboxList from './components/InboxList'
-import TopBar from '../components/ui/TopBar'
+import MainContainer from '../shared/components/MainContainer'
+import BottomNavbar from '../shared/components/BottomNavbar'
+import TopBar from '../shared/components/TopBar'
+import InboxContainer from './components/InboxContainer'
 
 export default function Inbox() {
   return (
     <>
       <TopBar title='INBOX' />
-      <MainContainer>
-        <div className='flex flex-col px-4 md:px-0 pt-[60px] pb-[70px]'>
-          <InboxList />
-        </div>
+      <MainContainer className='pt-[50px] pb-[110px]'>
+        <InboxContainer />
       </MainContainer>
       <BottomNavbar />
     </>

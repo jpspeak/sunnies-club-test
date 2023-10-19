@@ -1,22 +1,30 @@
-import MainContainer from '@/app/components/ui/MainContainer'
 import React from 'react'
-import Link from '../components/Link'
-import TopBar from '@/app/components/ui/TopBar'
+import MainContainer from '@/app/shared/components/MainContainer'
+import TopBar from '@/app/shared/components/TopBar'
+import NavItem from '../components/NavItem'
+import BottomNavbar from '@/app/shared/components/BottomNavbar'
+import NavItemSignout from './components/NavItemSignout'
 
 export default function AccountSettings() {
   return (
     <>
-      <TopBar title='Account settings' showBackNav />
-      <MainContainer>
-        <div className='flex flex-col mt-4 px-4 md:px-0 gap-1'>
-          <Link href='/account/account-settings/email-address'>
-            Email address
-          </Link>
-          <Link href='/account/account-settings/change-password'>
-            Change password
-          </Link>
-        </div>
+      <TopBar title='ACCOUNT SETTINGS' showBackNav />
+      <MainContainer className='flex flex-col pt-[50px] pb-[110px] px-4'>
+        <NavItem
+          href='/account/account-settings/email-address'
+          className='border-b border-soft-black-50'
+        >
+          Email address
+        </NavItem>
+        <NavItem
+          href='/account/account-settings/change-password'
+          className='border-b border-soft-black-50'
+        >
+          Change password
+        </NavItem>
+        <NavItemSignout />
       </MainContainer>
+      <BottomNavbar />
     </>
   )
 }

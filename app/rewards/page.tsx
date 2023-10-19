@@ -1,8 +1,9 @@
 import React from 'react'
-import MainContainer from '../components/ui/MainContainer'
-import BottomNavbar from '../components/ui/BottomNavbar'
-import TopBar from '../components/ui/TopBar'
-import RewardList from './components/RewardList'
+import MainContainer from '../shared/components/MainContainer'
+import BottomNavbar from '../shared/components/BottomNavbar'
+import TopBar from '../shared/components/TopBar'
+import MainWrapper from '../shared/components/MainWrapper'
+import RewardsContainer from './components/RewardsContainer'
 
 // async function getRewards() {
 //   // const { data } = await rewardService.getRewards({ next: { revalidate: 10 } })
@@ -20,9 +21,9 @@ export default async function Rewards() {
     <>
       <TopBar title='REWARDS' />
       <MainContainer>
-        <div className='flex flex-col px-4 md:px-0 pt-[60px] pb-[70px]'>
-          <RewardList />
-        </div>
+        <MainWrapper withTopPad withBotPad className='flex flex-col'>
+          <RewardsContainer />
+        </MainWrapper>
       </MainContainer>
       <BottomNavbar />
     </>

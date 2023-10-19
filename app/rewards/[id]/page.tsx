@@ -1,142 +1,145 @@
 'use client'
 
-import BottomAction from '@/app/components/ui/BottomAction'
-import Button from '@/app/components/ui/Button'
-import SuccesIcon from '@/app/components/ui/Icons/SuccessIcon'
-import MainContainer from '@/app/components/ui/MainContainer'
-import Modal from '@/app/components/ui/Modal'
-import TopBar from '@/app/components/ui/TopBar'
-import useModal from '@/app/hooks/useModa'
-import useUser from '@/app/hooks/useUser'
-import rewardService, {
-  RedeemResult,
-  RewardItem
-} from '@/app/services/api/rewardService'
-import formatDate from '@/app/utils/formatDate'
+import React, { useState } from 'react'
+import BottomBar from '@/app/shared/components/BottomBar'
+import Button from '@/app/shared/components/Button'
+import MainContainer from '@/app/shared/components/MainContainer'
+import Spinner from '@/app/shared/components/Spinner'
+import TopBar from '@/app/shared/components/TopBar'
+import useUser from '@/app/shared/hooks/useUser'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
 import useSWR from 'swr'
+import RedeemSuccessModal from './components/RedeemSuccessModal'
+import messages from '@/app/shared/constants/messages'
+import Center from '@/app/shared/components/Center'
+import DOMPurify from 'dompurify'
+import rewardService, {
+  RedeemResult,
+  Reward as TReward
+} from '@/app/shared/services/api/rewardService'
+import FetchError from '@/app/shared/components/FetchError'
+import InsufficientPointsModal from './components/InsufficientPointsModal'
 
 export default function Reward() {
-  const router = useRouter()
-  const { isShowingModal, toggleModal } = useModal()
-  const [isRedeeming, setIsRedeeming] = useState(false)
   const { user } = useUser()
-  const [redeemResult, setRedeemResult] = useState<RedeemResult | null>(null)
+  const router = useRouter()
+  const [isLoadingRedeem, setIsLoadingRedeem] = useState(false)
+  const [redeemResult, setRedeemResult] = useState<RedeemResult | null>()
+  const [errorRedeem, setErrorRedeem] = useState<string>('')
   const { id: rewardId } = useParams()
   const {
     data: reward,
     isLoading: isLoadingReward,
     error: errorReward
-  } = useSWR<RewardItem>(`reward/${rewardId}`, () =>
+  } = useSWR<TReward>(`/rewards/${rewardId}`, () =>
     rewardService.getReward(rewardId).then((res) => res.data)
   )
 
-  const redeem = async () => {
-    setIsRedeeming(true)
-    try {
-      const { data: dataRedeem } = await rewardService.redeemReward(rewardId)
-      setRedeemResult(dataRedeem)
-      toggleModal()
-      setIsRedeeming(false)
-    } catch (error) {
-      setIsRedeeming(false)
+  const handleRedeemClick = async () => {
+    if (user && reward && user?.points < reward?.points) {
+      setErrorRedeem('Insufficient Points')
+    } else {
+      setIsLoadingRedeem(true)
+      try {
+        const { data: dataRedeem } = await rewardService.redeemReward(rewardId)
+        setRedeemResult(dataRedeem)
+        setIsLoadingRedeem(false)
+      } catch (error) {
+        setErrorRedeem(messages.somethingWentWrong)
+        setIsLoadingRedeem(false)
+      }
     }
   }
+  // const handleConfirmClick = async () => {
+  //   setShowConfirmation(false)
+  //   setIsLoadingRedeem(true)
+  //   try {
+  //     const { data: dataRedeem } = await rewardService.redeemReward(rewardId)
+  //     setRedeemResult(dataRedeem)
+  //     setIsLoadingRedeem(false)
+  //   } catch (error) {
+  //     setErrorRedeem(messages.somethingWentWrong)
+  //     setIsLoadingRedeem(false)
+  //   }
+  // }
 
-  if (errorReward) return <>Error</>
-  if (isLoadingReward) return <>Loading...</>
+  if (errorReward) return <FetchError />
+  if (isLoadingReward)
+    return (
+      <Center className='h-screen'>
+        <Spinner />
+      </Center>
+    )
   return (
     <>
       <TopBar title='REWARDS' showBackNav />
-      <MainContainer>
-        <div className='flex flex-col px-4 md:px-0 pt-[60px] pb-[70px]'>
-          {reward?.image ? (
+      <MainContainer className='flex flex-col bg-soft-black-50 pt-[50px]'>
+        {reward?.image ? (
+          <div className='bg-white pb-7'>
             <Image
               src={reward?.image}
               alt='Reward'
               width={125}
               height={100}
               quality={100}
-              style={{ objectFit: 'contain' }}
-              className='mx-auto my-12'
+              className='object-contain mx-auto'
             />
-          ) : null}
-
-          <div className='p-4  border-gray-neutral-50 rounded-t-xl border-[1.5px]'>
-            <p className='text-sm font-bold text-soft-black-700'>
-              {reward?.name}
-            </p>
-            <span className='mt-3 text-xs text-gray-neutral-200'>
+          </div>
+        ) : null}
+        <div className='p-4'>
+          <div className='p-4 bg-white border border-gray-neutral-50 rounded-t-xl'>
+            <p className='text-xl text-soft-black-700'>{reward?.name}</p>
+            <span className='mt-1 text-xs text-soft-black-400'>
               {reward?.points} points
             </span>
           </div>
-          <div className='p-4 border-t-0 border-gray-neutral-50 rounded-b-xl border-[1.5px]'>
-            <p className='text-xs text-gray-neutral-200'>
-              Terms and Conditions
+          <div className='p-4 bg-white border border-t-0 rounded-b-xl border-gray-neutral-50'>
+            <p className='text-sm font-medium text-soft-black-700'>
+              Terms & Conditions
             </p>
             <div
-              className='pl-4 text-sm  text-soft-black-700 mt-[14px] [&>ul]:list-disc'
+              className='pl-4 text-xs text-soft-black-400 mt-2 [&>ul]:list-disc [&>ul]:leading-normal'
               dangerouslySetInnerHTML={{
-                __html: reward?.termsAndConditions || ''
+                __html: reward?.termsAndConditions
+                  ? DOMPurify.sanitize(reward.termsAndConditions)
+                  : ''
               }}
             ></div>
           </div>
         </div>
       </MainContainer>
-      {user && reward && user?.points > reward?.points ? (
-        <BottomAction isLoading={isRedeeming} onClick={redeem}>
-          REDEEM
-        </BottomAction>
-      ) : null}
 
-      {redeemResult ? (
-        <Modal show={isShowingModal} onClose={toggleModal}>
-          <SuccesIcon className='h-14 mx-auto text-[#A9D980]' />
-          <span className='block mt-8 text-lg font-bold text-center text-soft-black-700'>
-            SUCCESS
-          </span>
-          <p className='mt-3 text-sm font-bold text-center text-gray-neutral-500'>
-            You just redeemed a reward.
-          </p>
-          <div className='flex justify-between gap-4 mt-8'>
-            <span className='text-xs text-gray-neutral-200'>Reward</span>
-            <div className='flex flex-col items-end'>
-              <p className='text-sm text-gray-neutral-500'>
-                {redeemResult?.reward.name}
-              </p>
-              <time className='mt-1 leading-none text-xxs text-gray-neutral-200'>
-                Valid until {formatDate(redeemResult.reward.expiryDate)}
-              </time>
-            </div>
-          </div>
-          <div className='flex justify-between gap-4 mt-4'>
-            <span className='text-xs text-gray-neutral-200'>Total</span>
-            <span className='text-sm text-gray-neutral-500 '>
-              {redeemResult.reward.points} points
-            </span>
-          </div>
-          <hr className='my-4' />
-          <div className='flex justify-between text-sm font-bold text-soft-black-700'>
-            <span>BALANCE</span>
-            <span>{redeemResult.user.points} POINTS</span>
-          </div>
-          <Button
-            variant='primary'
-            className='mt-8'
-            onClick={() =>
-              router.push(`/my-rewards/${redeemResult.reward._id}`)
-            }
-          >
-            VIEW REWARD
-          </Button>
-          <Button className='mt-3 font-bold' onClick={toggleModal}>
-            DONE
-          </Button>
-        </Modal>
-      ) : null}
+      <BottomBar>
+        <Button onClick={handleRedeemClick} isLoading={isLoadingRedeem}>
+          Redeem
+        </Button>
+      </BottomBar>
+
+      {!!redeemResult && (
+        <RedeemSuccessModal
+          redeemResult={redeemResult}
+          onDoneClick={() => setRedeemResult(null)}
+          onViewRewardClick={() =>
+            redeemResult &&
+            router.push(`/account/my-rewards/${redeemResult.reward._id}`)
+          }
+        />
+      )}
+
+      {/* <ConfirmationModal
+        show={showConfirmation}
+        title='Lorem Ipsum'
+        body='Lorem Ipsum is simply dummy text of the printing and typesetting industry'
+        confirmBtnText='REDEEM'
+        onConfirmClick={handleConfirmClick}
+        onCancelClick={() => setShowConfirmation(false)}
+      /> */}
+
+      {!!errorRedeem && (
+        <InsufficientPointsModal onClick={() => setErrorRedeem('')} />
+      )}
     </>
   )
 }

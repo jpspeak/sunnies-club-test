@@ -1,0 +1,12 @@
+@keyframes umbra-symbol {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.umbra-symbol {
+  animation: umbra-symbol 1s ease-in-out;
+}

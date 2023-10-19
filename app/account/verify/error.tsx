@@ -1,24 +1,26 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import Alert from '@/app/components/ui/Alert'
-import Link from 'next/link'
-import MainContainer from '@/app/components/ui/MainContainer'
-import Center from '@/app/components/ui/Center'
+import Alert from '@/app/shared/components/Alert'
+import MainContainer from '@/app/shared/components/MainContainer'
+import MainWrapper from '@/app/shared/components/MainWrapper'
+import { useRouter } from 'next/navigation'
+import Button from '@/app/shared/components/Button'
 
 export default function Error({ error }: { error: Error }) {
+  const router = useRouter()
   useEffect(() => {
     // Log the error to an error reporting service
     console.error(error)
   }, [error])
   return (
     <MainContainer>
-      <Alert className='mt-4'>{error.message}</Alert>
-      <Center>
-        <Link href='/' className='underline'>
-          Home
-        </Link>
-      </Center>
+      <MainWrapper withTopPad>
+        <Alert variant='error'>{error.message}</Alert>
+        <Button onClick={() => router.replace('/')} className='mt-6'>
+          BACK TO HOME
+        </Button>
+      </MainWrapper>
     </MainContainer>
   )
 }
