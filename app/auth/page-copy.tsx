@@ -16,7 +16,6 @@ import ArrowLeft from '../shared/components/icons/ArrowLeftIcon'
 import LogoIcon from '../shared/components/icons/LogoIcon'
 import SigninForm from './components/SigninForm'
 import MainContainer from '../shared/components/MainContainer'
-import './style.css'
 
 export default function Auth() {
   const views = ['home', 'signup', 'signin']
@@ -39,9 +38,6 @@ export default function Auth() {
   const signinBtnRef = useRef<HTMLButtonElement>(null)
   const signupSubmitBtnRef = useRef<HTMLButtonElement>(null)
   const signinSubmitBtnRef = useRef<HTMLButtonElement>(null)
-  const signupWrapperRef = useRef<HTMLDivElement>(null)
-  const signinWrapperRef = useRef<HTMLDivElement>(null)
-  const authTextRef = useRef<HTMLParagraphElement>(null)
 
   const { isSubmitting: isSubmittingSignup, isSignupSucessful } =
     useSignupStore((state) => state)
@@ -53,39 +49,6 @@ export default function Auth() {
 
   const submitSigninForm = () => {
     signinSubmitBtnRef.current?.click()
-  }
-
-  const handleViewSignupClick = () => {
-    authTextRef.current?.classList.add('hideText')
-    authTextRef.current?.classList.remove('showText')
-
-    signupWrapperRef.current?.classList.add('showForm')
-    signupWrapperRef.current?.classList.remove('hideForm')
-
-    viewSignup()
-  }
-
-  const handleViewSigninClick = () => {
-    authTextRef.current?.classList.add('hideText')
-    authTextRef.current?.classList.remove('showText')
-
-    signinWrapperRef.current?.classList.add('showForm')
-    signinWrapperRef.current?.classList.remove('hideForm')
-
-    viewSignin()
-  }
-
-  const handleBackClick = () => {
-    authTextRef.current?.classList.add('showText')
-    authTextRef.current?.classList.remove('hideText')
-
-    signupWrapperRef.current?.classList.add('hideForm')
-    signupWrapperRef.current?.classList.remove('showForm')
-
-    signinWrapperRef.current?.classList.add('hideForm')
-    signinWrapperRef.current?.classList.remove('showForm')
-
-    viewHome()
   }
 
   const resetSignupStore = useSignupStore((state) => state.reset)
@@ -180,6 +143,11 @@ export default function Auth() {
     }
   }
 
+  useEffect(() => {
+    return () => {
+      viewHome()
+    }
+  }, [viewHome])
   return (
     <MainContainer>
       <div className='h-[50vh]'>
@@ -208,20 +176,17 @@ export default function Auth() {
             <TopNavBar
               className='left-0 bg-tranparent'
               backButton={
-                <button onClick={handleBackClick}>
+                <button onClick={viewHome}>
                   <ArrowLeft className='text-white' />
                 </button>
               }
             />
           )}
           <div
-            className={twMerge(
-              'relative flex flex-col h-full overflow-hidden',
-              [
-                view !== 'home' && 'overflow-y-auto',
-                view !== 'home' && isSignupSucessful && 'flex flex-col grow'
-              ]
-            )}
+            className={twMerge('overflow-hidden', [
+              view !== 'home' && 'overflow-y-auto',
+              view !== 'home' && isSignupSucessful && 'flex flex-col grow'
+            ])}
           >
             <LogoIcon
               className={twMerge(
@@ -231,32 +196,22 @@ export default function Auth() {
             />
 
             <p
-              ref={authTextRef}
-              className={twMerge(
-                'text-white text-center pt-[40px] px-[44px] bottom-0 relative mt-auto'
-              )}
+              className={`text-white text-center pt-[40px] px-[44px] ${
+                view !== 'home' && 'hidden'
+              }`}
             >
               Get rewarded and earn exclusive access to launches, VIP perks and
               more every time you shop.
             </p>
 
-            <div
-              ref={signupWrapperRef}
-              className={`absolute top-0 opacity-0 pt-[80px]`}
-            >
-              {isSignupSucessful ? (
+            {view === 'signup' &&
+              (isSignupSucessful ? (
                 <SignupSuccessful />
               ) : (
                 <SignupForm ref={signupSubmitBtnRef} />
-              )}
-            </div>
+              ))}
 
-            <div
-              ref={signinWrapperRef}
-              className={`absolute top-0 opacity-0 pt-[80px]`}
-            >
-              <SigninForm ref={signinSubmitBtnRef} />
-            </div>
+            {view === 'signin' && <SigninForm ref={signinSubmitBtnRef} />}
           </div>
 
           <div
@@ -266,9 +221,7 @@ export default function Auth() {
           >
             <Button
               ref={signupBtnRef}
-              onClick={
-                view === 'home' ? handleViewSignupClick : submitSignupForm
-              }
+              onClick={view === 'home' ? viewSignup : submitSignupForm}
               className={`text-red-700 bg-white ${signupBtnAnimClass(
                 view as View
               )}`}
@@ -282,9 +235,7 @@ export default function Auth() {
 
             <Button
               ref={signinBtnRef}
-              onClick={
-                view === 'home' ? handleViewSigninClick : submitSigninForm
-              }
+              onClick={view === 'home' ? viewSignin : submitSigninForm}
               variant='outline'
               className={`text-white border-white w-max ${loginBtnClass(
                 view as View
