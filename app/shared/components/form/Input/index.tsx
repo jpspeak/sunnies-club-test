@@ -36,7 +36,8 @@ export const inputCva = cva(
     'bg-transparent',
     'outline-none',
     'py-[4px]',
-    'font-medium'
+    'font-medium',
+    'rounded-none'
   ],
   {
     variants: {
