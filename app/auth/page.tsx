@@ -174,7 +174,7 @@ export default function Auth() {
       <div
         ref={drawerRef}
         className={twMerge(
-          'fixed bottom-0 flex w-full items-end md:max-w-md transition-all before:block before:absolute before:w-full before:h-full before:rounded-t-full before:bg-red-700',
+          'fixed bottom-0 flex w-full items-end max-w-md transition-all before:block before:absolute before:w-full before:h-full before:rounded-t-full before:bg-red-700',
           view !== 'home'
             ? '!h-full before:h-[calc(100vh+300px)] before:-top-[300px] duration-300'
             : 'duration-1000'
