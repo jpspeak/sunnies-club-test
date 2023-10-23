@@ -14,6 +14,11 @@ export default function MegaDealsList({
 }: {
   megaDeals?: MegaDeal[]
 }) {
+  const handleImageClick = (url?: string) => {
+    if (url) {
+      window.open(url, '_blank')
+    }
+  }
   return (
     <div className='border-b-[1px] border-gray-neutral-50 mt-3'>
       <Swiper
@@ -26,14 +31,18 @@ export default function MegaDealsList({
           <SwiperSlide
             key={megaDeal._id}
             className='overflow-hidden shadow-md rounded-xl'
+            onClick={() => handleImageClick(megaDeal.url)}
           >
-            <Image
-              src={megaDeal.image}
-              height={400}
-              width={400}
-              alt={megaDeal.name}
-              quality={100}
-            />
+            <div className='w-full pb-[100%] h-0 relative'>
+              <Image
+                src={megaDeal.image}
+                height={400}
+                width={400}
+                alt={megaDeal.name}
+                quality={100}
+                className='absolute object-cover w-full h-full'
+              />
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
