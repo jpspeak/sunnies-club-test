@@ -27,8 +27,8 @@ const SigninFormSchema = z.object({
   password: z.string().min(1, 'Please enter your password.')
 })
 
-export default forwardRef<HTMLButtonElement>(
-  function SigninForm(props, submitButtonRef) {
+export default forwardRef<HTMLButtonElement, { containerClass?: string }>(
+  function SigninForm({ containerClass }, submitButtonRef) {
     const signin = useAuthStore((state) => state.signin)
 
     const {
@@ -61,12 +61,12 @@ export default forwardRef<HTMLButtonElement>(
     }
 
     return (
-      <>
+      <div className={containerClass}>
         <FormHeader
           title='Join the club'
           body='Create an account to start earning points and unlock exclusive
               access to launches and events.'
-          className='px-[44px] mt-[40px]'
+          className='px-[44px]'
         />
         <form
           onSubmit={handleSubmit(submit)}
@@ -97,7 +97,7 @@ export default forwardRef<HTMLButtonElement>(
             Forgot your password?
           </Link>
         </div>
-      </>
+      </div>
     )
   }
 )

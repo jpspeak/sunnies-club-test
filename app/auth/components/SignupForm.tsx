@@ -50,8 +50,8 @@ const SignupFormSchema = z
     message: 'Password does not match.'
   })
 
-export default forwardRef<HTMLButtonElement>(
-  function SignupForm(props, submitButtonRef) {
+export default forwardRef<HTMLButtonElement, { containerClass?: string }>(
+  function SignupForm({ containerClass }, submitButtonRef) {
     const {
       register,
       handleSubmit,
@@ -86,12 +86,12 @@ export default forwardRef<HTMLButtonElement>(
     }
 
     return (
-      <>
+      <div className={containerClass}>
         <FormHeader
           title='Join the club'
           body='Create an account to start earning points and unlock exclusive
               access to launches and events.'
-          className='px-[44px] mt-[40px]'
+          className='px-[44px]'
         />
         <form
           onSubmit={handleSubmit(submit)}
@@ -145,7 +145,7 @@ export default forwardRef<HTMLButtonElement>(
           />
           <button ref={submitButtonRef} type='submit' className='hidden' />
         </form>
-      </>
+      </div>
     )
   }
 )
