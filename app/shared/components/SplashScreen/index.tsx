@@ -45,7 +45,7 @@ export default function SplashScreen({ children }: PropsWithChildren) {
 
   if (show === 'splash')
     return (
-      <div className='flex flex-col h-screen'>
+      <div className='flex flex-col h-[calc(100vh-60px)]'>
         <div className='flex items-center justify-center grow'>
           <LogoIcon className=' text-red-700 h-[98px]' />
         </div>
