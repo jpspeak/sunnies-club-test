@@ -16,7 +16,7 @@ import ArrowLeft from '../shared/components/icons/ArrowLeftIcon'
 import LogoIcon from '../shared/components/icons/LogoIcon'
 import SigninForm from './components/SigninForm'
 import MainContainer from '../shared/components/MainContainer'
-import './style.css'
+import { useElementSizesStore } from './store/elementSizesStore'
 
 export default function Auth() {
   const views = ['home', 'signup', 'signin']
@@ -28,20 +28,22 @@ export default function Auth() {
   const searchParams = useSearchParams()
   const initialView = searchParams.get('initialView')
 
-  const elementSizes = useRef({
-    drawerHeight: 0,
-    signupBtnWidth: 0,
-    signinBtnWidth: 0
-  })
+  const {
+    initialized,
+    drawerHeight,
+    signinBtnWidth,
+    signupBtnWidth,
+    initialize,
+    setDrawerHeight,
+    setSigninBtnWidth,
+    setSignupBtnWidth
+  } = useElementSizesStore((state) => state)
 
   const drawerRef = useRef<HTMLDivElement>(null)
   const signupBtnRef = useRef<HTMLButtonElement>(null)
   const signinBtnRef = useRef<HTMLButtonElement>(null)
   const signupSubmitBtnRef = useRef<HTMLButtonElement>(null)
   const signinSubmitBtnRef = useRef<HTMLButtonElement>(null)
-  const signupWrapperRef = useRef<HTMLDivElement>(null)
-  const signinWrapperRef = useRef<HTMLDivElement>(null)
-  const authTextRef = useRef<HTMLParagraphElement>(null)
 
   const { isSubmitting: isSubmittingSignup, isSignupSucessful } =
     useSignupStore((state) => state)
@@ -56,35 +58,14 @@ export default function Auth() {
   }
 
   const handleViewSignupClick = () => {
-    authTextRef.current?.classList.add('hideText')
-    authTextRef.current?.classList.remove('showText')
-
-    signupWrapperRef.current?.classList.add('showForm')
-    signupWrapperRef.current?.classList.remove('hideForm')
-
     viewSignup()
   }
 
   const handleViewSigninClick = () => {
-    authTextRef.current?.classList.add('hideText')
-    authTextRef.current?.classList.remove('showText')
-
-    signinWrapperRef.current?.classList.add('showForm')
-    signinWrapperRef.current?.classList.remove('hideForm')
-
     viewSignin()
   }
 
   const handleBackClick = () => {
-    authTextRef.current?.classList.add('showText')
-    authTextRef.current?.classList.remove('hideText')
-
-    signupWrapperRef.current?.classList.add('hideForm')
-    signupWrapperRef.current?.classList.remove('showForm')
-
-    signinWrapperRef.current?.classList.add('hideForm')
-    signinWrapperRef.current?.classList.remove('showForm')
-
     viewHome()
   }
 
@@ -108,37 +89,36 @@ export default function Auth() {
   useEffect(() => {
     const setSizesForTransitionToWork = () => {
       if (drawerRef.current) {
-        const drawerHeight = drawerRef.current.offsetHeight
-        elementSizes.current = { ...elementSizes.current, drawerHeight }
+        setDrawerHeight(drawerRef.current.offsetHeight)
       }
       if (signupBtnRef.current) {
-        const signupBtnWidth =
-          signupBtnRef.current.getBoundingClientRect().width
-        elementSizes.current = { ...elementSizes.current, signupBtnWidth }
+        setSignupBtnWidth(signupBtnRef.current.getBoundingClientRect().width)
       }
       if (signinBtnRef.current) {
-        const signinBtnWidth =
-          signinBtnRef.current.getBoundingClientRect().width
-        elementSizes.current = { ...elementSizes.current, signinBtnWidth }
+        setSigninBtnWidth(signinBtnRef.current.getBoundingClientRect().width)
       }
     }
-
-    setSizesForTransitionToWork()
+    if (!initialized) {
+      setSizesForTransitionToWork()
+      initialize()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // FOR ANIMATION | Set exact width or height value for transition to work
   useEffect(() => {
     if (view === 'home') {
-      if (drawerRef.current && elementSizes.current.drawerHeight > 0) {
-        drawerRef.current.style.height = `${elementSizes.current.drawerHeight}px`
+      if (drawerRef.current && drawerHeight > 0) {
+        drawerRef.current.style.height = `${drawerHeight}px`
       }
-      if (signupBtnRef.current && elementSizes.current.signupBtnWidth > 0) {
-        signupBtnRef.current.style.width = `${elementSizes.current.signupBtnWidth}px`
+      if (signupBtnRef.current && signupBtnWidth > 0) {
+        signupBtnRef.current.style.width = `${signupBtnWidth}px`
       }
-      if (signinBtnRef.current && elementSizes.current.signinBtnWidth > 0) {
-        signinBtnRef.current.style.width = `${elementSizes.current.signinBtnWidth}px`
+      if (signinBtnRef.current && signinBtnWidth > 0) {
+        signinBtnRef.current.style.width = `${signinBtnWidth}px`
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view])
 
   // FOR ANIMATION | Set signup or signin button position to absolute
@@ -181,7 +161,7 @@ export default function Auth() {
   }
 
   return (
-    <MainContainer>
+    <MainContainer className='relative pb-[110px]'>
       <div className='h-[50vh]'>
         <Image
           src='/images/auth-image.png'
@@ -194,16 +174,13 @@ export default function Auth() {
       <div
         ref={drawerRef}
         className={twMerge(
-          'fixed bottom-0 flex w-full items-end transition-all duration-700 bg-red-700 md:max-w-md',
-          view !== 'home' ? 'bg-opacity-100 !h-full' : 'bg-opacity-0'
+          'fixed bottom-0 flex w-full items-end md:max-w-md transition-all before:block before:absolute before:w-full before:h-full before:rounded-t-full before:bg-red-700',
+          view !== 'home'
+            ? '!h-full before:h-[calc(100vh+300px)] before:-top-[300px] duration-300'
+            : 'duration-1000'
         )}
       >
-        <div
-          className={twMerge(
-            'flex flex-col justify-between bg-red-700 transition-all duration-700 w-full pt-[60px] pb-[40px] px-[16px] rounded-t-full h-full',
-            view !== 'home' && 'rounded-t-none'
-          )}
-        >
+        <div className='flex flex-col justify-between w-full pt-[50px] pb-[40px] px-[16px] h-full'>
           {view !== 'home' && (
             <TopNavBar
               className='left-0 bg-tranparent'
@@ -215,52 +192,43 @@ export default function Auth() {
             />
           )}
           <div
-            className={twMerge(
-              'relative flex flex-col h-full overflow-hidden',
-              [
-                view !== 'home' && 'overflow-y-auto',
-                view !== 'home' && isSignupSucessful && 'flex flex-col grow'
-              ]
-            )}
+            className={twMerge('relative flex flex-col h-full overflow-hidden')}
           >
-            <LogoIcon
+            <div
               className={twMerge(
-                'h-[80px] text-white mx-auto transition-all duration-700 scale-100',
+                'relative h-[80px] text-white mx-auto transition-all duration-1000 scale-100',
                 view !== 'home' && 'scale-75'
               )}
             />
 
             <p
-              ref={authTextRef}
               className={twMerge(
-                'text-white text-center pt-[40px] px-[44px] bottom-0 relative mt-auto'
+                'text-white text-center pt-[40px] px-[44px] bottom-0 relative mt-auto transition-all duration-700',
+                view === 'home' ? 'opacity-100 z-10' : 'opacity-0 z-[-1]'
               )}
             >
               Get rewarded and earn exclusive access to launches, VIP perks and
               more every time you shop.
             </p>
-
-            <div
-              ref={signupWrapperRef}
-              className={`absolute top-0 opacity-0 pt-[80px]`}
-            >
-              {isSignupSucessful ? (
-                <SignupSuccessful />
-              ) : (
-                <SignupForm ref={signupSubmitBtnRef} />
-              )}
-            </div>
-
-            <div
-              ref={signinWrapperRef}
-              className={`absolute top-0 opacity-0 pt-[80px]`}
-            >
-              <SigninForm ref={signinSubmitBtnRef} />
-            </div>
           </div>
 
           <div
-            className={`flex gap-[8px] mt-[40px] relative ${
+            className={twMerge(
+              'w-full absolute left-0 bottom-0 pt-[50px] transition-all duration-[800ms]',
+              view !== 'home' && '!h-full'
+            )}
+            style={{ height: drawerHeight || '100%' }}
+          >
+            <LogoIcon
+              className={twMerge(
+                'absolute h-[80px] text-white left-1/2 -translate-x-1/2 transition-all duration-500 scale-100',
+                view !== 'home' && 'scale-75'
+              )}
+            />
+          </div>
+
+          <div
+            className={`flex gap-[8px] mt-[40px] relative bg-red-700 z-10 ${
               isSignupSucessful && 'hidden'
             }`}
           >
@@ -298,6 +266,28 @@ export default function Auth() {
             </Button>
           </div>
         </div>
+      </div>
+
+      <div
+        className={twMerge(
+          'absolute top-[calc(50px+60px+40px)] transition-all duration-700 z-[-1] opacity-0 bottom-[110px] overflow-y-auto',
+          view === 'signup' && '!z-10 !opacity-100'
+        )}
+      >
+        {isSignupSucessful ? (
+          <SignupSuccessful containerClass='px-4' />
+        ) : (
+          <SignupForm ref={signupSubmitBtnRef} containerClass='px-4' />
+        )}
+      </div>
+
+      <div
+        className={twMerge(
+          'absolute top-[calc(50px+60px+40px)] transition-all duration-700 z-[-1] opacity-0 bottom-[110px] overflow-y-auto',
+          view === 'signin' && '!z-10 !opacity-100'
+        )}
+      >
+        <SigninForm ref={signinSubmitBtnRef} containerClass='px-4' />
       </div>
     </MainContainer>
   )
