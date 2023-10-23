@@ -29,7 +29,9 @@ export default function MegaDealsContainer() {
   }
 
   return (
-    <div className={`mt-[40px] ${megaDeals?.length === 0 && 'hidden'}`}>
+    <div
+      className={`mt-[40px] mb-[40px] ${megaDeals?.length === 0 && 'hidden'}`}
+    >
       <h2 className='text-xl'>Announcements</h2>
       {renderList()}
     </div>

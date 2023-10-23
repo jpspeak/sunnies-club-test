@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function SunniesGuarantee() {
   return (
-    <div className='p-4 text-white shadow-md rounded-xl bg-[#263074] mt-[40px]'>
+    <div className='p-4 text-white shadow-md rounded-xl bg-[#263074] mt-4'>
       <h3 className='text-xl'>Sunnies Guarantee</h3>
       <Image
         src='/icons/warranty-logo.png'
