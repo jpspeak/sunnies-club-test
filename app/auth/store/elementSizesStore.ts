@@ -1,22 +1,22 @@
 import { create } from 'zustand'
 
 type ElementSizesStore = {
-  initialized: boolean
+  sizesInitialized: boolean
   drawerHeight: number
   signupBtnWidth: number
   signinBtnWidth: number
-  initialize: () => void
+  initializeSizes: () => void
   setDrawerHeight: (drawerHeight: number) => void
   setSignupBtnWidth: (signupBtnWidth: number) => void
   setSigninBtnWidth: (signinBtnWidth: number) => void
 }
 
 export const useElementSizesStore = create<ElementSizesStore>((set) => ({
-  initialized: false,
+  sizesInitialized: false,
   drawerHeight: 0,
   signupBtnWidth: 0,
   signinBtnWidth: 0,
-  initialize: () => set(() => ({ initialized: true })),
+  initializeSizes: () => set(() => ({ sizesInitialized: true })),
   setDrawerHeight: (drawerHeight) => set(() => ({ drawerHeight })),
   setSignupBtnWidth: (signupBtnWidth) => set(() => ({ signupBtnWidth })),
   setSigninBtnWidth: (signinBtnWidth) => set(() => ({ signinBtnWidth }))

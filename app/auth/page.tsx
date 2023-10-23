@@ -29,11 +29,11 @@ export default function Auth() {
   const initialView = searchParams.get('initialView')
 
   const {
-    initialized,
+    sizesInitialized,
     drawerHeight,
     signinBtnWidth,
     signupBtnWidth,
-    initialize,
+    initializeSizes,
     setDrawerHeight,
     setSigninBtnWidth,
     setSignupBtnWidth
@@ -98,9 +98,9 @@ export default function Auth() {
         setSigninBtnWidth(signinBtnRef.current.getBoundingClientRect().width)
       }
     }
-    if (!initialized) {
+    if (!sizesInitialized) {
       setSizesForTransitionToWork()
-      initialize()
+      initializeSizes()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -108,18 +108,18 @@ export default function Auth() {
   // FOR ANIMATION | Set exact width or height value for transition to work
   useEffect(() => {
     if (view === 'home') {
-      if (drawerRef.current && drawerHeight > 0) {
+      if (drawerRef.current && sizesInitialized) {
         drawerRef.current.style.height = `${drawerHeight}px`
       }
-      if (signupBtnRef.current && signupBtnWidth > 0) {
+      if (signupBtnRef.current && sizesInitialized) {
         signupBtnRef.current.style.width = `${signupBtnWidth}px`
       }
-      if (signinBtnRef.current && signinBtnWidth > 0) {
+      if (signinBtnRef.current && sizesInitialized) {
         signinBtnRef.current.style.width = `${signinBtnWidth}px`
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [view])
+  }, [view, sizesInitialized])
 
   // FOR ANIMATION | Set signup or signin button position to absolute
   useEffect(() => {
