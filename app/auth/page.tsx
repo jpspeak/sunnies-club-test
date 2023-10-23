@@ -16,7 +16,7 @@ import ArrowLeft from '../shared/components/icons/ArrowLeftIcon'
 import LogoIcon from '../shared/components/icons/LogoIcon'
 import SigninForm from './components/SigninForm'
 import MainContainer from '../shared/components/MainContainer'
-import './style.css'
+import { useElementSizesStore } from './store/elementSizesStore'
 
 export default function Auth() {
   const views = ['home', 'signup', 'signin']
@@ -28,11 +28,16 @@ export default function Auth() {
   const searchParams = useSearchParams()
   const initialView = searchParams.get('initialView')
 
-  const elementSizes = useRef({
-    drawerHeight: 0,
-    signupBtnWidth: 0,
-    signinBtnWidth: 0
-  })
+  const {
+    initialized,
+    drawerHeight,
+    signinBtnWidth,
+    signupBtnWidth,
+    initialize,
+    setDrawerHeight,
+    setSigninBtnWidth,
+    setSignupBtnWidth
+  } = useElementSizesStore((state) => state)
 
   const drawerRef = useRef<HTMLDivElement>(null)
   const signupBtnRef = useRef<HTMLButtonElement>(null)
@@ -84,37 +89,36 @@ export default function Auth() {
   useEffect(() => {
     const setSizesForTransitionToWork = () => {
       if (drawerRef.current) {
-        const drawerHeight = drawerRef.current.offsetHeight
-        elementSizes.current = { ...elementSizes.current, drawerHeight }
+        setDrawerHeight(drawerRef.current.offsetHeight)
       }
       if (signupBtnRef.current) {
-        const signupBtnWidth =
-          signupBtnRef.current.getBoundingClientRect().width
-        elementSizes.current = { ...elementSizes.current, signupBtnWidth }
+        setSignupBtnWidth(signupBtnRef.current.getBoundingClientRect().width)
       }
       if (signinBtnRef.current) {
-        const signinBtnWidth =
-          signinBtnRef.current.getBoundingClientRect().width
-        elementSizes.current = { ...elementSizes.current, signinBtnWidth }
+        setSigninBtnWidth(signinBtnRef.current.getBoundingClientRect().width)
       }
     }
-
-    setSizesForTransitionToWork()
+    if (!initialized) {
+      setSizesForTransitionToWork()
+      initialize()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // FOR ANIMATION | Set exact width or height value for transition to work
   useEffect(() => {
     if (view === 'home') {
-      if (drawerRef.current && elementSizes.current.drawerHeight > 0) {
-        drawerRef.current.style.height = `${elementSizes.current.drawerHeight}px`
+      if (drawerRef.current && drawerHeight > 0) {
+        drawerRef.current.style.height = `${drawerHeight}px`
       }
-      if (signupBtnRef.current && elementSizes.current.signupBtnWidth > 0) {
-        signupBtnRef.current.style.width = `${elementSizes.current.signupBtnWidth}px`
+      if (signupBtnRef.current && signupBtnWidth > 0) {
+        signupBtnRef.current.style.width = `${signupBtnWidth}px`
       }
-      if (signinBtnRef.current && elementSizes.current.signinBtnWidth > 0) {
-        signinBtnRef.current.style.width = `${elementSizes.current.signinBtnWidth}px`
+      if (signinBtnRef.current && signinBtnWidth > 0) {
+        signinBtnRef.current.style.width = `${signinBtnWidth}px`
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view])
 
   // FOR ANIMATION | Set signup or signin button position to absolute
@@ -157,7 +161,7 @@ export default function Auth() {
   }
 
   return (
-    <MainContainer>
+    <MainContainer className='relative pb-[110px]'>
       <div className='h-[50vh]'>
         <Image
           src='/images/auth-image.png'
@@ -176,7 +180,7 @@ export default function Auth() {
             : 'duration-1000'
         )}
       >
-        <div className='flex flex-col justify-between w-full pt-[60px] pb-[40px] px-[16px] h-full'>
+        <div className='flex flex-col justify-between w-full pt-[50px] pb-[40px] px-[16px] h-full'>
           {view !== 'home' && (
             <TopNavBar
               className='left-0 bg-tranparent'
@@ -210,10 +214,10 @@ export default function Auth() {
 
           <div
             className={twMerge(
-              'w-full absolute left-0 bottom-0 pt-[60px] transition-all duration-[800ms]',
+              'w-full absolute left-0 bottom-0 pt-[50px] transition-all duration-[800ms]',
               view !== 'home' && '!h-full'
             )}
-            style={{ height: elementSizes.current.drawerHeight || '100%' }}
+            style={{ height: drawerHeight || '100%' }}
           >
             <LogoIcon
               className={twMerge(
@@ -224,7 +228,7 @@ export default function Auth() {
           </div>
 
           <div
-            className={`flex gap-[8px] mt-[40px] relative ${
+            className={`flex gap-[8px] mt-[40px] relative bg-red-700 z-10 ${
               isSignupSucessful && 'hidden'
             }`}
           >
@@ -266,24 +270,24 @@ export default function Auth() {
 
       <div
         className={twMerge(
-          'absolute top-[52px] pt-[80px] transition-all duration-700 z-[-1] opacity-0',
+          'absolute top-[calc(50px+60px+40px)] transition-all duration-700 z-[-1] opacity-0 bottom-[110px] overflow-y-auto',
           view === 'signup' && '!z-10 !opacity-100'
         )}
       >
         {isSignupSucessful ? (
-          <SignupSuccessful />
+          <SignupSuccessful containerClass='px-4' />
         ) : (
-          <SignupForm ref={signupSubmitBtnRef} />
+          <SignupForm ref={signupSubmitBtnRef} containerClass='px-4' />
         )}
       </div>
 
       <div
         className={twMerge(
-          'absolute top-[52px] pt-[80px] transition-all duration-700 z-[-1] opacity-0',
+          'absolute top-[calc(50px+60px+40px)] transition-all duration-700 z-[-1] opacity-0 bottom-[110px] overflow-y-auto',
           view === 'signin' && '!z-10 !opacity-100'
         )}
       >
-        <SigninForm ref={signinSubmitBtnRef} />
+        <SigninForm ref={signinSubmitBtnRef} containerClass='px-4' />
       </div>
     </MainContainer>
   )
