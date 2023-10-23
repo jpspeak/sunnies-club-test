@@ -90,6 +90,7 @@ export default function ChangePasswordForm({
         className='flex flex-col grow w-full mt-[40px] px-4 pb-[40px]'
       >
         <PasswordInputWithRequirements
+          colorScheme='white'
           label='New Password'
           error={errors.password?.message}
           eye
@@ -97,6 +98,7 @@ export default function ChangePasswordForm({
           {...register('password')}
         />
         <PasswordInput
+          colorScheme='white'
           label='Confirm new password'
           error={errors.confirmPassword?.message}
           eye
