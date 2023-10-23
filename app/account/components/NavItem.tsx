@@ -26,7 +26,7 @@ export default function NavItem(props: ComponentProps<typeof Link>) {
     <Link
       href={props.href}
       className={twMerge(
-        'flex items-center justify-between overflow-hidden text-sm leading-tight text-soft-black-700 text-ellipsis rounded-[8px] py-4',
+        'flex items-center justify-between overflow-hidden text-sm leading-tight text-soft-black-700 text-ellipsis py-4',
         props.className
       )}
     >

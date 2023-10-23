@@ -23,7 +23,7 @@ export default function NavItemButton(props: ComponentProps<'button'>) {
   return (
     <button
       onClick={props.onClick}
-      className='flex items-center justify-between w-full overflow-hidden text-sm leading-tight text-soft-black-700 text-ellipsis rounded-[8px] py-4'
+      className='flex items-center justify-between w-full py-4 overflow-hidden text-sm leading-tight text-soft-black-700 text-ellipsis'
     >
       <span className='overflow-hidden '>{props.children}</span>
       <ArrowIcon />
