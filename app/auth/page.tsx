@@ -39,6 +39,7 @@ export default function Auth() {
     setSignupBtnWidth
   } = useElementSizesStore((state) => state)
 
+  const mainContainerRef = useRef<HTMLDivElement>(null)
   const drawerRef = useRef<HTMLDivElement>(null)
   const signupBtnRef = useRef<HTMLButtonElement>(null)
   const signinBtnRef = useRef<HTMLButtonElement>(null)
@@ -105,6 +106,13 @@ export default function Auth() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // Set main container height based on view port inner height(without toolbars)
+  useEffect(() => {
+    if (mainContainerRef.current) {
+      mainContainerRef.current.style.minHeight = `${window.innerHeight}px`
+    }
+  }, [])
+
   // FOR ANIMATION | Set exact width or height value for transition to work
   useEffect(() => {
     if (view === 'home') {
@@ -161,7 +169,7 @@ export default function Auth() {
   }
 
   return (
-    <MainContainer className='relative pb-[110px]'>
+    <MainContainer ref={mainContainerRef} className='relative pb-[110px]'>
       <div className='h-[50vh]'>
         <Image
           src='/images/auth-image.png'
