@@ -16,7 +16,7 @@ const poppins = Poppins({
 })
 const APP_NAME = 'Sunnies Club'
 const APP_DESCRIPTION =
-  'Welcome to the Sunnies Studios Loyalty Program, where every sunny day becomes even brighter! Join our exclusive Sunnies Club and enjoy a world of fabulous perks. Earn points with every purchase, unlock VIP access to our latest eyewear collections, and receive special offers tailored just for you.'
+  'Welcome to the Sunnies Loyalty Program, where every sunny day becomes even brighter! Join our exclusive Sunnies Club and enjoy a world of fabulous perks. Earn points with every purchase, unlock VIP access to our latest eyewear collections, and receive special offers tailored just for you.'
 
 export const metadata: Metadata = {
   title: APP_NAME,
