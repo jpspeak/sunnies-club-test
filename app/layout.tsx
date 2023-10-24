@@ -15,7 +15,8 @@ const poppins = Poppins({
   variable: '--font-poppins'
 })
 const APP_NAME = 'Sunnies Club'
-const APP_DESCRIPTION = 'Sunnies Club description'
+const APP_DESCRIPTION =
+  'Welcome to the Sunnies Studios Loyalty Program, where every sunny day becomes even brighter! Join our exclusive Sunnies Club and enjoy a world of fabulous perks. Earn points with every purchase, unlock VIP access to our latest eyewear collections, and receive special offers tailored just for you.'
 
 export const metadata: Metadata = {
   title: APP_NAME,
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false
   },
-  themeColor: '#352B27',
+  themeColor: '#CE5119',
   viewport:
     'minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover',
   manifest: '/manifest.json',
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
     { rel: 'icon', sizes: '32x32', url: '/icons/site/favicon-32x32.png' },
     { rel: 'icon', sizes: '16x16', url: '/icons/site/favicon-16x16.png' }
   ],
-  keywords: [APP_NAME]
+  keywords: ['Sunnies Club', 'Loyalty Program', 'Earn Points', 'Redeem Points']
 }
 
 export default function RootLayout({
