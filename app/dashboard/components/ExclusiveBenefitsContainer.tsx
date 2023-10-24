@@ -5,7 +5,7 @@ import ExclusiveBenefitsList from './ExclusiveBenefitsList'
 import SCCoinIcon from '@/app/shared/components/icons/SCCoinIcon'
 import EventCalendarIcon from '@/app/shared/components/icons/EventCalendarIcon'
 import BirthdayCakeIcon from '@/app/shared/components/icons/BirthdayCakeIcon'
-import ButtonLink from '@/app/shared/components/ButtonLink'
+// import ButtonLink from '@/app/shared/components/ButtonLink'
 
 export default function ExclusiveBenefitsContainer() {
   const exclusiveBenifs = [
@@ -30,9 +30,9 @@ export default function ExclusiveBenefitsContainer() {
         exclusiveBenifs={exclusiveBenifs}
         className='mt-4'
       />
-      <ButtonLink href='' variant='outline' className='mt-6 text-red-700'>
+      {/* <ButtonLink href='' variant='outline' className='mt-6 text-red-700'>
         See all benefits
-      </ButtonLink>
+      </ButtonLink> */}
     </div>
   )
 }
