@@ -20,6 +20,7 @@
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "class-variance-authority": "^0.7.0",
+    "cypress": "^13.3.2",
     "dompurify": "^3.0.5",
     "eslint-config-next": "13.4.4",
     "event-source-polyfill": "^1.0.31",
