@@ -13,25 +13,30 @@ export default function SplashScreen({ children }: PropsWithChildren) {
   )
   const timerRef = useRef(0)
 
+  const ALWAYS_ENABLE_SPLASH = false
+
   const newSplashData = () =>
     JSON.stringify({
-      // expiration: Date.now() + 5 * 24 * 60 * 60 * 1000 // In 5 days splash screen will show again
-      expiration: Date.now() + 1000
+      expiration: Date.now() + 365 * 24 * 60 * 60 * 1000 // Splash screen will show again after 1 year
     })
 
   useEffect(() => {
-    if (splashData) {
-      const { expiration } = JSON.parse(splashData)
-      if (expiration > Date.now()) {
-        setShow('children')
+    if (ALWAYS_ENABLE_SPLASH) {
+      setShow('splash')
+    } else {
+      if (splashData) {
+        const { expiration } = JSON.parse(splashData)
+        if (expiration > Date.now()) {
+          setShow('children')
+        } else {
+          setShow('splash')
+        }
       } else {
         setShow('splash')
-        setSplashData(null)
       }
-    } else {
-      setShow('splash')
     }
-  }, [setSplashData, splashData])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (show === 'splash') {
