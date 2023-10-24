@@ -56,7 +56,7 @@
 
 /* React Toastify Custom Style */
 .Toastify__toast-container {
-  @apply !p-4;
+  @apply !p-4 md:min-w-[27rem];
 }
 .Toastify__toast-container > .Toastify__toast {
   @apply rounded-lg !p-4 font-medium;

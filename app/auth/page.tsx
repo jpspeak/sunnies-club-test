@@ -17,6 +17,8 @@ import LogoIcon from '../shared/components/icons/LogoIcon'
 import SigninForm from './components/SigninForm'
 import MainContainer from '../shared/components/MainContainer'
 import { useElementSizesStore } from './store/elementSizesStore'
+import { isDesktop } from 'react-device-detect'
+import { toast } from 'react-toastify'
 
 export default function Auth() {
   const views = ['home', 'signup', 'signin']
@@ -110,6 +112,29 @@ export default function Auth() {
   useEffect(() => {
     if (mainContainerRef.current) {
       mainContainerRef.current.style.minHeight = `${window.innerHeight}px`
+    }
+  }, [])
+
+  // Show swicth to mobile popup
+  useEffect(() => {
+    if (isDesktop) {
+      toast.info(
+        <div>
+          <p className='text-center text-soft-black-700'>
+            Switch to mobile for an experience like no other and don&apos;t miss
+            out on exclusive rewards and VIP treatment!
+          </p>
+          <Button onClick={() => toast.dismiss()} className='mt-4'>
+            Got it
+          </Button>
+        </div>,
+        {
+          theme: 'light',
+          toastId: 'info',
+          autoClose: false,
+          closeButton: false
+        }
+      )
     }
   }, [])
 
