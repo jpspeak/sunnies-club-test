@@ -21,7 +21,12 @@ export default function AxiosInterceptors({ children }: PropsWithChildren) {
       async (error) => {
         const originalRequest = error.config
 
-        if (error.response?.status === 401) {
+        // Request refresh token if error status is 401
+        // Should not request refresh token if 401 is from signing in
+        if (
+          error.response?.status === 401 &&
+          error.response.config.url !== '/auth/sign-in'
+        ) {
           if (!isRefreshing) {
             isRefreshing = true
             refreshPromise = authService.refreshToken()
