@@ -3,6 +3,7 @@ import FormHeader from '@/app/shared/components/FormHeader'
 import React from 'react'
 import { useAuthViewStore } from '../store/authViewStore'
 import BottomBar from '@/app/shared/components/BottomBar'
+import { useSignupStore } from '../store/signupStore'
 
 export default function SignupSuccessful({
   containerClass
@@ -10,7 +11,11 @@ export default function SignupSuccessful({
   containerClass?: string
 }) {
   const setView = useAuthViewStore((state) => state.setView)
+
+  const resetSignupStore = useSignupStore((state) => state.reset)
+
   const handleLoginCLick = () => {
+    resetSignupStore()
     setView('signin')
   }
   return (
@@ -26,7 +31,7 @@ export default function SignupSuccessful({
           variant='outline'
           className='text-white border-white'
         >
-          Log in
+          Go to login
         </Button>
       </BottomBar>
       {/* <div className='flex items-end grow'>
