@@ -6,9 +6,14 @@ const setRefreshToken = (refreshToken: string) => {
 }
 
 const getRefreshToken = () => {
-  const data = localStorage.getItem(refreshTokenKey)
-  if (data) {
-    return JSON.parse(data).refreshToken
+  const jsonData = localStorage.getItem(refreshTokenKey)
+  if (jsonData) {
+    try {
+      const data = JSON.parse(jsonData)
+      return data.refreshToken || null
+    } catch (e) {
+      return null
+    }
   }
   return null
 }
@@ -18,9 +23,14 @@ const setAccessToken = (accessToken: string) => {
 }
 
 const getAccessToken = () => {
-  const data = localStorage.getItem(accessTokenKey)
-  if (data) {
-    return JSON.parse(data).accessToken
+  const jsonData = localStorage.getItem(accessTokenKey)
+  if (jsonData) {
+    try {
+      const data = JSON.parse(jsonData)
+      return data.accessToken || null
+    } catch (error) {
+      return null
+    }
   }
   return null
 }
