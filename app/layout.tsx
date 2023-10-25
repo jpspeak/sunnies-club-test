@@ -4,7 +4,6 @@ import { Metadata } from 'next'
 import { Inter, Poppins } from 'next/font/google'
 import RequireAuth from './shared/components/RequireAuth'
 import SplashScreen from './shared/components/SplashScreen'
-import AxiosInterceptors from './shared/components/AxiosInterceptors'
 import SSE from './shared/components/SSE'
 import ToastProvider from './shared/components/ToastProvider'
 
@@ -56,20 +55,18 @@ export default function RootLayout({
       <body className={`${inter.variable} ${poppins.variable}`}>
         <SplashScreen>
           <ToastProvider>
-            <AxiosInterceptors>
-              <RequireAuth
-                except={[
-                  '/',
-                  '/auth',
-                  '/account/verify',
-                  '/reset-password-verification',
-                  '/reset-password'
-                ]}
-              >
-                <SSE />
-                {children}
-              </RequireAuth>
-            </AxiosInterceptors>
+            <RequireAuth
+              except={[
+                '/',
+                '/auth',
+                '/account/verify',
+                '/reset-password-verification',
+                '/reset-password'
+              ]}
+            >
+              <SSE />
+              {children}
+            </RequireAuth>
           </ToastProvider>
         </SplashScreen>
       </body>

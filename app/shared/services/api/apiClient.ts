@@ -1,5 +1,6 @@
 import axios from 'axios'
 import authTokenService from '../authTokenService'
+import authService from './authService'
 
 export const apiClientRefreshToken = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_SERVER_URL || 'http://localhost:8000',
@@ -22,6 +23,46 @@ apiClient.interceptors.request.use(
     return config
   },
   (error) => {
+    return Promise.reject(error)
+  }
+)
+
+// Response interceptor to refresh an expired token
+let isRefreshing = false // Track if a token refresh is in progress
+let refreshPromise: any // Store the promise for token refresh
+apiClient.interceptors.response.use(
+  (response) => {
+    return response
+  },
+  async (error) => {
+    const originalRequest = error.config
+
+    // Request refresh token if error status is 401
+    // Should not request refresh token if 401 is from signing in
+    if (
+      error.response?.status === 401 &&
+      error.response.config.url !== '/auth/sign-in'
+    ) {
+      if (!isRefreshing) {
+        isRefreshing = true
+        refreshPromise = authService.refreshToken()
+      }
+      try {
+        const { data } = await refreshPromise
+        authTokenService.setAccessToken(data.accessToken)
+        authTokenService.setRefreshToken(data.refreshToken)
+
+        // Clear the refresh-related variables
+        isRefreshing = false
+        refreshPromise = null
+
+        return await apiClient(originalRequest)
+      } catch (refreshError: any) {
+        if (refreshError.response.status === 401) {
+          authTokenService.removeTokens()
+        }
+      }
+    }
     return Promise.reject(error)
   }
 )

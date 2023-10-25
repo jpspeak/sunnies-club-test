@@ -2,19 +2,27 @@ const refreshTokenKey = 'rtkn'
 const accessTokenKey = 'atkn'
 
 const setRefreshToken = (refreshToken: string) => {
-  localStorage.setItem(refreshTokenKey, refreshToken)
+  localStorage.setItem(refreshTokenKey, JSON.stringify({ refreshToken }))
 }
 
 const getRefreshToken = () => {
-  return localStorage.getItem(refreshTokenKey)
+  const data = localStorage.getItem(refreshTokenKey)
+  if (data) {
+    return JSON.parse(data).refreshToken
+  }
+  return null
 }
 
 const setAccessToken = (accessToken: string) => {
-  localStorage.setItem(accessTokenKey, accessToken)
+  localStorage.setItem(accessTokenKey, JSON.stringify({ accessToken }))
 }
 
 const getAccessToken = () => {
-  return localStorage.getItem(accessTokenKey)
+  const data = localStorage.getItem(accessTokenKey)
+  if (data) {
+    return JSON.parse(data).accessToken
+  }
+  return null
 }
 
 const removeTokens = () => {
@@ -27,7 +35,9 @@ const authTokenService = {
   getRefreshToken,
   setAccessToken,
   getAccessToken,
-  removeTokens
+  removeTokens,
+  accessTokenKey,
+  refreshTokenKey
 }
 
 export default authTokenService

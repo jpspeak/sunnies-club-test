@@ -11,8 +11,8 @@ export default function NavItemSignout() {
   const handleClick = async () => {
     try {
       await authService.signout()
-      authTokenService.removeTokens()
       storeSignout()
+      authTokenService.removeTokens()
     } catch (error) {
       console.log(error)
     }
