@@ -6,7 +6,7 @@ import ProfileForm from './components/ProfileForm'
 export default function PersonalDetails() {
   return (
     <>
-      <TopBar title='PERSONAL INFORMATION' showBackNav />
+      <TopBar title='EDIT PROFILE' showBackNav />
       <MainContainer className='pt-[50px] pb-[110px] px-4'>
         <ProfileForm />
       </MainContainer>
