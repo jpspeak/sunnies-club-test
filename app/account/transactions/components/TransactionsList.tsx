@@ -7,10 +7,10 @@ import {
   Transactions,
   transactionTypes
 } from '@/app/shared/services/api/transactionService'
-import utcToLocalDDMMMYYYY from '@/app/shared/utils/utcToLocalDDMMMYYYY'
 import { addCommasWithCents } from '@/app/shared/utils/addCommas'
 import { twMerge } from 'tailwind-merge'
 import { useRouter } from 'next/navigation'
+import utcToLocalMMMDYYYY from '@/app/shared/utils/utcToLocalMMMDYYYY'
 
 export default function TransactionsList({
   className,
@@ -69,7 +69,11 @@ export default function TransactionsList({
                 {transaction.description}
               </p>
               <p className='mt-1 text-xxs text-soft-black-400'>
-                {utcToLocalDDMMMYYYY(transaction.date)}
+                {utcToLocalMMMDYYYY(
+                  transaction.type === transactionTypes.earnedPoints
+                    ? transaction.orderDetails[0].paymentDate
+                    : transaction.date
+                )}
               </p>
             </div>
 
