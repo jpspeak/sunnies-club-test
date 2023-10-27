@@ -65,6 +65,9 @@ export default function Reward() {
   //   }
   // }
 
+  const redeemable =
+    !!user?.points && !!reward?.points && user.points >= reward.points
+
   if (errorReward) return <FetchError />
   if (isLoadingReward)
     return (
@@ -84,7 +87,7 @@ export default function Reward() {
               width={125}
               height={100}
               quality={100}
-              className='object-contain mx-auto'
+              className={`object-contain mx-auto ${!redeemable && 'grayscale'}`}
             />
           </div>
         ) : null}
@@ -112,8 +115,13 @@ export default function Reward() {
       </MainContainer>
 
       <BottomBar>
-        <Button onClick={handleRedeemClick} isLoading={isLoadingRedeem}>
-          Redeem
+        <Button
+          onClick={handleRedeemClick}
+          isLoading={isLoadingRedeem}
+          disabled={!redeemable}
+          variant={redeemable ? 'solid' : 'disabledGray'}
+        >
+          {redeemable ? 'Redeem' : 'Unavailable'}
         </Button>
       </BottomBar>
 
