@@ -27,7 +27,6 @@ const withPWA = require('@imbios/next-pwa')({
 module.exports = withPWA({
   // next.js config
   images: {
-    // dangerouslyAllowSVG: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -46,16 +45,3 @@ module.exports = withPWA({
   },
   reactStrictMode: false
 })
-
-// module.exports = {
-//   images: {
-//     // dangerouslyAllowSVG: true,
-//     remotePatterns: [
-//       {
-//         protocol: 'https',
-//         hostname: 'umbra-digital.sgp1.digitaloceanspaces.com'
-//       }
-//     ]
-//   },
-//   reactStrictMode: false
-// }
