@@ -52,7 +52,6 @@ apiClient.interceptors.response.use(
         authTokenService.setAccessToken(data.accessToken)
         authTokenService.setRefreshToken(data.refreshToken)
 
-        // Clear the refresh-related variables
         isRefreshing = false
         refreshPromise = null
 
@@ -61,6 +60,9 @@ apiClient.interceptors.response.use(
         if (refreshError.response.status === 401) {
           authTokenService.removeTokens()
         }
+
+        isRefreshing = false
+        refreshPromise = null
       }
     }
     return Promise.reject(error)
