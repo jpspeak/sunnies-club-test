@@ -31,7 +31,8 @@ export default forwardRef<HTMLButtonElement, { containerClass?: string }>(
   function SigninForm({ containerClass }, submitButtonRef) {
     const signin = useAuthStore((state) => state.signin)
 
-    const [rememberMe, setRememberMe] = useLocalStorage('rememberMe', false)
+    // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unused-vars
+    const [_, setRememberMe] = useLocalStorage('rememberMe', false)
 
     const {
       register,
