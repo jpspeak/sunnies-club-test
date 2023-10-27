@@ -27,24 +27,33 @@ export default function MegaDealsList({
         spaceBetween={12}
         className='!overflow-x-visible'
       >
-        {megaDeals?.map((megaDeal) => (
-          <SwiperSlide
-            key={megaDeal._id}
-            className='overflow-hidden shadow-md rounded-xl'
-            onClick={() => handleImageClick(megaDeal.url)}
-          >
-            <div className='w-full pb-[100%] h-0 relative'>
-              <Image
-                src={megaDeal.image}
-                height={400}
-                width={400}
-                alt={megaDeal.name}
-                quality={100}
-                className='absolute object-cover w-full h-full'
-              />
-            </div>
-          </SwiperSlide>
-        ))}
+        {megaDeals?.map((megaDeal) => {
+          const color = `text-[${megaDeal.fontColor}]`
+          return (
+            <SwiperSlide
+              key={megaDeal._id}
+              className='relative overflow-hidden shadow-md rounded-xl'
+              onClick={() => handleImageClick(megaDeal.url)}
+            >
+              <div className='w-full pb-[100%] h-0 relative'>
+                <Image
+                  src={megaDeal.image}
+                  height={400}
+                  width={400}
+                  alt={megaDeal.name}
+                  quality={100}
+                  className='absolute object-cover w-full h-full'
+                />
+              </div>
+              <div className='absolute bottom-0 p-4'>
+                <h3 className={`font-bold ${color}`}>{megaDeal.name}</h3>
+                <p className={`mt-1 text-xs ${color}`}>
+                  {megaDeal.description}
+                </p>
+              </div>
+            </SwiperSlide>
+          )
+        })}
       </Swiper>
     </div>
   )

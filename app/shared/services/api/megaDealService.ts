@@ -6,6 +6,7 @@ export type MegaDeal = {
   name: string
   description: string
   url: string
+  fontColor: string
   createdAt: string
 }
 
