@@ -13,23 +13,25 @@ import { useSigninStore } from '../store/signinStore'
 import Link from 'next/link'
 import useAuthStore from '@/app/shared/hooks/useAuthStore'
 import authTokenService from '@/app/shared/services/authTokenService'
+import Checkbox from '@/app/shared/components/form/Checkbox'
+import { useLocalStorage } from 'usehooks-ts'
 
-type FormDataType = {
-  email: string
-  password: string
-}
+type FormDataType = z.infer<typeof SigninFormSchema>
 
 const SigninFormSchema = z.object({
   email: z
     .string()
     .min(1, 'Please enter your email address.')
     .email('Invalid email address'),
-  password: z.string().min(1, 'Please enter your password.')
+  password: z.string().min(1, 'Please enter your password.'),
+  rememberMe: z.boolean()
 })
 
 export default forwardRef<HTMLButtonElement, { containerClass?: string }>(
   function SigninForm({ containerClass }, submitButtonRef) {
     const signin = useAuthStore((state) => state.signin)
+
+    const [rememberMe, setRememberMe] = useLocalStorage('rememberMe', false)
 
     const {
       register,
@@ -46,9 +48,10 @@ export default forwardRef<HTMLButtonElement, { containerClass?: string }>(
       setIsSubmitting(true)
       try {
         const { data } = await authService.signin(formdata)
-        signin()
         authTokenService.setAccessToken(data.accessToken)
         authTokenService.setRefreshToken(data.refreshToken)
+        setRememberMe(formdata.rememberMe)
+        signin()
         setIsSubmitting(false)
       } catch (error: any) {
         toast.error(error.response?.data?.message || 'An error occurred.', {
@@ -86,6 +89,13 @@ export default forwardRef<HTMLButtonElement, { containerClass?: string }>(
             eye={true}
             {...register('password')}
             className='mt-3'
+          />
+          <Checkbox
+            id='rememberMe'
+            text='Remember me'
+            {...register('rememberMe')}
+            containerClass='text-white'
+            labelClass='text-white'
           />
           <button ref={submitButtonRef} type='submit' className='hidden' />
         </form>

@@ -35,7 +35,8 @@ const signout = () => apiClient.post('/auth/sign-out')
 
 const refreshToken = () =>
   apiClientRefreshToken.post('/auth/refresh-token', {
-    refreshToken: authTokenService.getRefreshToken()
+    refreshToken: authTokenService.getRefreshToken(),
+    rememberMe: localStorage.getItem('rememberMe') || false
   })
 
 const authService = { getAuthUser, signup, signin, signout, refreshToken }
