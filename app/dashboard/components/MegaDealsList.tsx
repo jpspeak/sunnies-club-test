@@ -8,8 +8,6 @@ import 'swiper/css'
 import '../style.css'
 import Image from 'next/image'
 import { MegaDeal } from '@/app/shared/services/api/megaDealService'
-import { twMerge } from 'tailwind-merge'
-import { clsx } from 'clsx'
 
 export default function MegaDealsList({
   megaDeals
