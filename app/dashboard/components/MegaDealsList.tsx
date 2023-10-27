@@ -8,6 +8,8 @@ import 'swiper/css'
 import '../style.css'
 import Image from 'next/image'
 import { MegaDeal } from '@/app/shared/services/api/megaDealService'
+import { twMerge } from 'tailwind-merge'
+import { clsx } from 'clsx'
 
 export default function MegaDealsList({
   megaDeals
@@ -28,7 +30,6 @@ export default function MegaDealsList({
         className='!overflow-x-visible'
       >
         {megaDeals?.map((megaDeal) => {
-          const color = `text-[${megaDeal.fontColor}]`
           return (
             <SwiperSlide
               key={megaDeal._id}
@@ -46,8 +47,13 @@ export default function MegaDealsList({
                 />
               </div>
               <div className='absolute bottom-0 p-4'>
-                <h3 className={`font-bold ${color}`}>{megaDeal.name}</h3>
-                <p className={`mt-1 text-xs ${color}`}>
+                <h3 className='font-bold' style={{ color: megaDeal.fontColor }}>
+                  {megaDeal.name}
+                </h3>
+                <p
+                  className='mt-1 text-xs'
+                  style={{ color: megaDeal.fontColor }}
+                >
                   {megaDeal.description}
                 </p>
               </div>
