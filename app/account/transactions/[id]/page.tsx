@@ -9,10 +9,10 @@ import transactionService, {
 } from '@/app/shared/services/api/transactionService'
 import { useParams } from 'next/navigation'
 import CoinIcon from '@/app/shared/components/icons/CoinIcon'
-import utcToLocalYYYYMMDDHHMM from '@/app/shared/utils/utcToLocalYYYYMMDDHHMM'
 import { addCommasWithCents } from '@/app/shared/utils/addCommas'
 import Spinner from '@/app/shared/components/Spinner'
 import FetchError from '@/app/shared/components/FetchError'
+import utcToLocalMMDDYYYYHHMM from '@/app/shared/utils/utcToLocalMMDDYYYYHHMM'
 
 export default function Transaction() {
   const { id: transactionId } = useParams()
@@ -47,7 +47,7 @@ export default function Transaction() {
               <span className='text-soft-black-400 text-xxs'>DATE & TIME</span>
               <span className='text-sm text-soft-black-700'>
                 {transaction?.orderDetails[0].paymentDate &&
-                  utcToLocalYYYYMMDDHHMM(
+                  utcToLocalMMDDYYYYHHMM(
                     transaction.orderDetails[0].paymentDate
                   )}
               </span>
