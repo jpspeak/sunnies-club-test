@@ -91,13 +91,10 @@ export default forwardRef<HTMLButtonElement, { containerClass?: string }>(
             {...register('password')}
             className='mt-3'
           />
-          <Checkbox
-            id='rememberMe'
-            text='Remember me'
-            {...register('rememberMe')}
-            containerClass='text-white'
-            labelClass='text-white'
-          />
+          <div className='flex items-center gap-2 mt-3 text-white'>
+            <Checkbox id='rememberMe' {...register('rememberMe')} />
+            <label htmlFor='rememberMe'>Remember me</label>
+          </div>
           <button ref={submitButtonRef} type='submit' className='hidden' />
         </form>
         <div className='flex justify-center mt-6'>
