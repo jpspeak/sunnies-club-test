@@ -76,3 +76,8 @@
 .Toastify__close-button {
   @apply !opacity-100;
 }
+
+/* iOS Date input */
+input::-webkit-date-and-time-value {
+  text-align: left;
+}
