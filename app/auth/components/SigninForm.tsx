@@ -91,7 +91,7 @@ export default forwardRef<HTMLButtonElement, { containerClass?: string }>(
             {...register('password')}
             className='mt-3'
           />
-          <div className='flex items-center gap-2 mt-3 text-white'>
+          <div className='flex items-center gap-1 mt-3 text-white'>
             <Checkbox id='rememberMe' {...register('rememberMe')} />
             <label htmlFor='rememberMe' className='text-sm'>
               Remember me

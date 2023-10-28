@@ -49,7 +49,7 @@ export default forwardRef<
   ComponentProps<'input'> & CheckboxProps
 >(function Checkbox({ id, containerClass, ...otherProps }, ref) {
   return (
-    <div className={twMerge('relative h-5 w-5', containerClass)}>
+    <div className={twMerge('relative h-4 w-4', containerClass)}>
       <div className='w-full h-full [&:has(~input:checked)]:hidden'>
         <CheckIcon />
       </div>
