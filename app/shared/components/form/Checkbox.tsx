@@ -1,4 +1,4 @@
-import React, { ComponentProps } from 'react'
+import React, { ComponentProps, forwardRef } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 const CheckIconFilled = () => (
@@ -44,11 +44,10 @@ type CheckboxProps = {
   id: string
   containerClass?: string
 }
-function Checkbox({
-  id,
-  containerClass,
-  ...otherProps
-}: ComponentProps<'input'> & CheckboxProps) {
+export default forwardRef<
+  HTMLInputElement,
+  ComponentProps<'input'> & CheckboxProps
+>(function Checkbox({ id, containerClass, ...otherProps }, ref) {
   return (
     <div className={twMerge('relative h-5 w-5', containerClass)}>
       <div className='w-full h-full [&:has(~input:checked)]:hidden'>
@@ -57,10 +56,14 @@ function Checkbox({
       <div className='hidden w-full h-full [&:has(~input:checked)]:block'>
         <CheckIconFilled />
       </div>
-      <input type='checkbox' className='hidden' {...otherProps} id={id} />
+      <input
+        ref={ref}
+        type='checkbox'
+        className='hidden'
+        {...otherProps}
+        id={id}
+      />
       <label htmlFor={id} className='h-0 w-full pb-[100%]  absolute' />
     </div>
   )
-}
-
-export default Checkbox
+})
