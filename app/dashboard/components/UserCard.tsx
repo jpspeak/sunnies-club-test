@@ -10,8 +10,8 @@ import RedeemIcon from '@/app/shared/components/icons/RedeemIcon'
 import Link from 'next/link'
 import AccountIcon from '@/app/shared/components/icons/AccountIcon'
 import CoinIcon from '@/app/shared/components/icons/CoinIcon'
-import utcToLocalDDMMYY from '@/app/shared/utils/utcToLocalDDMMYY'
 import { addCommas } from '@/app/shared/utils/addCommas'
+import utcToLocalMMDDYY from '@/app/shared/utils/utcToLocalMMDDYY'
 
 export default function UserCard() {
   const { user } = useUser()
@@ -29,7 +29,7 @@ export default function UserCard() {
   )
 
   const memberSince = user ? (
-    utcToLocalDDMMYY(user.createdAt)
+    utcToLocalMMDDYY(user.createdAt)
   ) : (
     <Skeleton width={80} />
   )

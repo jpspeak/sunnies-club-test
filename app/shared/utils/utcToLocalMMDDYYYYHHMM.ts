@@ -1,6 +1,6 @@
 import moment from 'moment-timezone'
 
-// Convert UTC to Local Date 'YYYY-MM-DD HH:mm'
+// Convert UTC to Local Date 'MM/DD/YYYY HH:mm'
 export default function utcToLocalMMDDYYYYHHMM(utcTime: string) {
   const userTimezone = moment.tz.guess()
   const localDate = moment.utc(utcTime).tz(userTimezone)
