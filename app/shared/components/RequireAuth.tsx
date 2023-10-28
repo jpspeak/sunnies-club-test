@@ -27,6 +27,7 @@ export default function RequireAuth({
     }
     window.addEventListener('user:signout', handleUserSignout)
     return () => window.removeEventListener('user:signout', handleUserSignout)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Get user then sign in
