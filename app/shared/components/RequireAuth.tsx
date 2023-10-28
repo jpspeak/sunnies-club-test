@@ -6,8 +6,8 @@ import useAuthStore from '../hooks/useAuthStore'
 import Spinner from './Spinner'
 import Center from './Center'
 import authService from '../services/api/authService'
-import { useReadLocalStorage } from 'usehooks-ts'
 import authTokenService from '../services/authTokenService'
+import { useLocalStorage } from '@uidotdev/usehooks'
 
 type RequireAuthProps = {
   except: string[]
@@ -20,16 +20,16 @@ export default function RequireAuth({
   const router = useRouter()
   const pathname = usePathname()
   const [isLoading, setIsLoading] = useState(true)
-  const adminAtkn = useReadLocalStorage(authTokenService.accessTokenKey)
+  const [atkn] = useLocalStorage(authTokenService.accessTokenKey, null)
   const { signin, signout, isAuthenticated } = useAuthStore((state) => state)
 
   // Signout if no accesstoken
   useEffect(() => {
-    if (!adminAtkn) {
+    if (!atkn) {
       signout()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [adminAtkn])
+  }, [atkn])
 
   // Get user then sign in
   useEffect(() => {
