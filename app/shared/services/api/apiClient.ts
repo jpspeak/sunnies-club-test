@@ -59,6 +59,7 @@ apiClient.interceptors.response.use(
       } catch (refreshError: any) {
         if (refreshError.response.status === 401) {
           authTokenService.removeTokens()
+          window.dispatchEvent(new Event('user:signout'))
         }
 
         isRefreshing = false
