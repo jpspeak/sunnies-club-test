@@ -20,23 +20,26 @@ type UpdatePwdFormData = {
   newPassword: string
 }
 
-const addSecEmailVerification = (formdata: { secondaryEmail: string }) =>
+const sendSecEmailVerification = (formdata: { secondaryEmail: string }) =>
   apiClient.post(
-    '/users/account/email-address/add-sec-email-verification',
+    '/users/account/secondary-email-address/verification',
     formdata
   )
 
 const addSecEmail = (formdata: { secondaryEmail: string; otp: string }) =>
-  apiClient.post('/users/account/add-sec-email', formdata)
+  apiClient.post('/users/account/secondary-email-address/add', formdata)
+
+const sendResetPasswordVerification = (formdata: ResetPwdVerifFormData) =>
+  apiClient.post('/users/password/reset/verification', formdata)
 
 const resetPassword = (formdata: ResetPwdFormData) =>
   apiClient.post('/users/password/reset', formdata)
 
-const resetPasswordVerification = (formdata: ResetPwdVerifFormData) =>
-  apiClient.post('/users/password/reset/verification', formdata)
-
 const updateProfile = (formdata: UpdateProfileFormData) =>
   apiClient.post('/users/profile', formdata)
+
+const sendAccountVerification = (formdata: { email: string }) =>
+  apiClient.post(`/users/account/verification`, formdata)
 
 const verifyAccount = (token: string) =>
   apiClient.post(`/users/account/verify?verificationToken=${token}`)
@@ -45,12 +48,13 @@ const updatePassword = (formdata: UpdatePwdFormData) =>
   apiClient.post('/users/password/update', formdata)
 
 const userService = {
-  addSecEmailVerification,
+  sendSecEmailVerification,
   addSecEmail,
-  resetPasswordVerification,
+  sendResetPasswordVerification,
   resetPassword,
-  updateProfile,
+  sendAccountVerification,
   verifyAccount,
+  updateProfile,
   updatePassword
 }
 export default userService

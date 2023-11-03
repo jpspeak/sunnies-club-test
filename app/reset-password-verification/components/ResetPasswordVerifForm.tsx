@@ -43,7 +43,7 @@ export default function ResetPasswordForm({
   const submit: SubmitHandler<FormDataType> = async (formdata) => {
     setIsSubmitting(true)
     try {
-      await userService.resetPasswordVerification(formdata)
+      await userService.sendResetPasswordVerification(formdata)
       onEmailSent()
       setIsSubmitting(false)
     } catch (error: any) {

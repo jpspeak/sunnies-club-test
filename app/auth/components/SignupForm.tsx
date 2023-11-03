@@ -12,6 +12,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'react-toastify'
 import { useSignupStore } from '@/app/auth/store/signupStore'
 import authService from '@/app/shared/services/api/authService'
+import { useLocalStorage } from '@uidotdev/usehooks'
+import moment from 'moment-timezone'
+import { useRouter } from 'next/navigation'
 
 type FormDataType = {
   email: string
@@ -64,9 +67,15 @@ export default forwardRef<HTMLButtonElement, { containerClass?: string }>(
       }
     })
 
-    const { setIsSubmitting, setSignupSuccessful } = useSignupStore(
-      (state) => state
+    const router = useRouter()
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [tokenDateCreated, saveTokenDateCreated] = useLocalStorage(
+      'tokenDateCreated',
+      ''
     )
+
+    const { setIsSubmitting } = useSignupStore((state) => state)
 
     const password = watch('password')
 
@@ -74,8 +83,9 @@ export default forwardRef<HTMLButtonElement, { containerClass?: string }>(
       setIsSubmitting(true)
       try {
         await authService.signup(formdata)
-        setSignupSuccessful()
+        saveTokenDateCreated(moment().utc().toISOString())
         setIsSubmitting(false)
+        router.push(`/auth/signup-successful?email=${formdata.email}`)
       } catch (error: any) {
         toast.error(error.response?.data?.message || 'An error occurred.', {
           toastId: 'error'

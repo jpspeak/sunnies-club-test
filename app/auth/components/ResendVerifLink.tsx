@@ -1,26 +1,27 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
-import { useSearchParams } from 'next/navigation'
 import userService from '@/app/shared/services/api/userService'
 import { useLocalStorage } from '@uidotdev/usehooks'
 import moment from 'moment-timezone'
 import { toast } from 'react-toastify'
+import { useSearchParams } from 'next/navigation'
 
-export default function ResendOTP() {
+export default function ResendVerifLink() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const [resent, setResent] = useState<boolean>(false)
   const [countdown, setCountdown] = useState(0)
-  const searchParams = useSearchParams()
-  const [otpDateCreated, saveOTPDateCreated] = useLocalStorage(
-    'otpDateCreated',
+  const [tokenDateCreated, saveTokenDateCreated] = useLocalStorage(
+    'tokenDateCreated',
     ''
   )
+  const searchParams = useSearchParams()
 
   useEffect(() => {
-    if (otpDateCreated) {
+    if (tokenDateCreated) {
       const timeDiffInSeconds = moment()
         .utc()
-        .diff(moment(otpDateCreated), 'seconds')
+        .diff(moment(tokenDateCreated), 'seconds')
+
       const retryAfterSeconds = 60
 
       if (timeDiffInSeconds < retryAfterSeconds) {
@@ -35,16 +36,16 @@ export default function ResendOTP() {
         setCountdown(0)
       }
     }
-  }, [otpDateCreated])
+  }, [tokenDateCreated])
 
   const handleResendClick = async () => {
-    const secondaryEmail = searchParams.get('secondaryEmail') || ''
+    const email = searchParams.get('email') || ''
     setIsSubmitting(true)
     try {
-      const formdata = { secondaryEmail }
-      await userService.sendSecEmailVerification(formdata)
+      const formdata = { email }
+      const { data } = await userService.sendAccountVerification(formdata)
       setResent(true)
-      saveOTPDateCreated(moment().utc().toISOString())
+      saveTokenDateCreated(data.data.tokenDateCreated)
       setIsSubmitting(false)
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'An error occurred.', {
@@ -74,9 +75,7 @@ export default function ResendOTP() {
       type='button'
       onClick={handleResendClick}
       disabled={disable}
-      className={`${!disable && 'underline'} ${
-        disable ? 'text-soft-black-100' : 'text-soft-black-400'
-      } `}
+      className={`${!disable && 'underline'}`}
     >
       {renderText()}
     </button>

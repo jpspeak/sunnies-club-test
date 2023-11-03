@@ -12,6 +12,7 @@ import useUser from '@/app/shared/hooks/useUser'
 import userService from '@/app/shared/services/api/userService'
 import { useRouter } from 'next/navigation'
 import { useLocalStorage } from 'usehooks-ts'
+import moment from 'moment-timezone'
 
 type FormDataType = z.infer<typeof UpdateEmailFormSchema>
 
@@ -51,10 +52,10 @@ export default function UpdateSecEmailForm() {
   const submit: SubmitHandler<FormDataType> = async (formdata) => {
     setIsSubmitting(true)
     try {
-      const { data } = await userService.addSecEmailVerification({
+      await userService.sendSecEmailVerification({
         secondaryEmail: formdata.secondaryEmail
       })
-      saveOTPDateCreated(data.data.otpDateCreated)
+      saveOTPDateCreated(moment().utc().toISOString())
       setIsSubmitting(false)
       router.push(
         `/account/account-settings/email-address/add-sec-email-verification?secondaryEmail=${formdata.secondaryEmail}`
@@ -70,7 +71,7 @@ export default function UpdateSecEmailForm() {
 
   useEffect(() => {
     setValue('email', user?.email || '')
-    setValue('secondaryEmail', user?.secondaryEmail || '')
+    setValue('secondaryEmail', user?.secondaryEmail?.email || '')
   }, [user, setValue])
 
   return (

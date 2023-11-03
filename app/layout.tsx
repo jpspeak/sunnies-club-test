@@ -6,6 +6,7 @@ import RequireAuth from './shared/components/RequireAuth'
 import SplashScreen from './shared/components/SplashScreen'
 import SSE from './shared/components/SSE'
 import ToastProvider from './shared/components/ToastProvider'
+import SwitchToMobileModal from './shared/components/SwitchToMobileModal'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const poppins = Poppins({
@@ -55,10 +56,12 @@ export default function RootLayout({
       <body className={`${inter.variable} ${poppins.variable}`}>
         <SplashScreen>
           <ToastProvider>
+            <SwitchToMobileModal />
             <RequireAuth
               except={[
                 '/',
                 '/auth',
+                '/auth/signup-successful',
                 '/account/verify',
                 '/reset-password-verification',
                 '/reset-password'

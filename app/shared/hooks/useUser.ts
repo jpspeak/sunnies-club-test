@@ -1,15 +1,17 @@
 import useSWR from 'swr'
 import authService from '../services/api/authService'
 
-type User = {
+export type User = {
   _id: string
   email: string
-  secondaryEmail?: string
+  secondaryEmail?: {
+    email: string
+    verified: string
+  }
   firstname: string
   lastname: string
   birthdate: string
   points: number
-  brandsAccounts: { email: string }[]
   mobileNumber?: string
   createdAt: string
   updatedAt: string

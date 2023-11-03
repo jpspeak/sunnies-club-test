@@ -8,7 +8,6 @@ import TopNavBar from '../shared/components/TopNavbar'
 import SignupForm from './components/SignupForm'
 import { useSigninStore } from './store/signinStore'
 import { useSignupStore } from './store/signupStore'
-import SignupSuccessful from './components/SignupSuccessful'
 import { View, useAuthViewStore } from './store/authViewStore'
 import { useSearchParams } from 'next/navigation'
 import Spinner from '../shared/components/Spinner'
@@ -17,8 +16,6 @@ import LogoIcon from '../shared/components/icons/LogoIcon'
 import SigninForm from './components/SigninForm'
 import MainContainer from '../shared/components/MainContainer'
 import { useElementSizesStore } from './store/elementSizesStore'
-import { isDesktop } from 'react-device-detect'
-import { toast } from 'react-toastify'
 
 export default function Auth() {
   const views = ['home', 'signup', 'signin']
@@ -48,8 +45,7 @@ export default function Auth() {
   const signupSubmitBtnRef = useRef<HTMLButtonElement>(null)
   const signinSubmitBtnRef = useRef<HTMLButtonElement>(null)
 
-  const { isSubmitting: isSubmittingSignup, isSignupSucessful } =
-    useSignupStore((state) => state)
+  const { isSubmitting: isSubmittingSignup } = useSignupStore((state) => state)
   const isSubmittingSignin = useSigninStore((state) => state.isSubmitting)
 
   const submitSignupForm = () => {
@@ -112,29 +108,6 @@ export default function Auth() {
   useEffect(() => {
     if (mainContainerRef.current) {
       mainContainerRef.current.style.minHeight = `${window.innerHeight}px`
-    }
-  }, [])
-
-  // Show swicth to mobile popup
-  useEffect(() => {
-    if (isDesktop) {
-      toast.info(
-        <div>
-          <p className='text-center text-soft-black-700'>
-            Switch to mobile for an experience like no other and don&apos;t miss
-            out on exclusive rewards and VIP treatment!
-          </p>
-          <Button onClick={() => toast.dismiss()} className='mt-4'>
-            Got it
-          </Button>
-        </div>,
-        {
-          theme: 'light',
-          toastId: 'info',
-          autoClose: false,
-          closeButton: false
-        }
-      )
     }
   }, [])
 
@@ -260,11 +233,7 @@ export default function Auth() {
             />
           </div>
 
-          <div
-            className={`flex gap-[8px] mt-[40px] relative bg-red-700 z-10 ${
-              isSignupSucessful && 'hidden'
-            }`}
-          >
+          <div className='flex gap-[8px] mt-[40px] relative bg-red-700 z-10'>
             <Button
               ref={signupBtnRef}
               onClick={
@@ -307,11 +276,7 @@ export default function Auth() {
           view === 'signup' && '!z-10 !opacity-100'
         )}
       >
-        {isSignupSucessful ? (
-          <SignupSuccessful containerClass='px-4' />
-        ) : (
-          <SignupForm ref={signupSubmitBtnRef} containerClass='px-4' />
-        )}
+        <SignupForm ref={signupSubmitBtnRef} containerClass='px-4' />
       </div>
 
       <div
