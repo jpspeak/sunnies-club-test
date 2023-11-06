@@ -14,11 +14,11 @@ export default function ExclusiveBenefitsContainer() {
       icon: SCCoinIcon
     },
     {
-      label: 'Attend exclusive Sunnies events',
+      label: 'Get invited to exclusive Sunnies events',
       icon: EventCalendarIcon
     },
     {
-      label: 'Get a birthday treat on us',
+      label: 'Double points on your birthday​',
       icon: BirthdayCakeIcon
     }
   ]
