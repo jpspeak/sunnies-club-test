@@ -24,7 +24,7 @@ const ArrowIcon = () => (
 export default function NavItem(props: ComponentProps<typeof Link>) {
   return (
     <Link
-      href={props.href}
+      {...props}
       className={twMerge(
         'flex items-center justify-between overflow-hidden text-sm leading-tight text-soft-black-700 text-ellipsis py-4',
         props.className

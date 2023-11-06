@@ -33,7 +33,7 @@ export default function Account() {
         >
           Account settings
         </NavItem>
-        <NavItem href='/faq' className='border-b border-soft-black-50'>
+        <NavItem href='/help-center' className='border-b border-soft-black-50'>
           Help Center
         </NavItem>
       </MainContainer>
