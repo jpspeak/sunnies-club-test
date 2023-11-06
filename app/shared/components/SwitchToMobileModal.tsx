@@ -10,9 +10,8 @@ function SwitchToMobileModal() {
     if (isDesktop) {
       toast.info(
         <div>
-          <p className='text-center text-soft-black-700'>
-            Switch to mobile for an experience like no other and don&apos;t miss
-            out on exclusive rewards and VIP treatment!
+          <p className='text-soft-black-700'>
+            Welcome to Sunnies Club! Switch to mobile for a better experience.
           </p>
           <Button onClick={() => toast.dismiss()} className='mt-4'>
             Got it
