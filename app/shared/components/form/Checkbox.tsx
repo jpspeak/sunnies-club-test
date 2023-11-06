@@ -63,7 +63,7 @@ export default forwardRef<
         {...otherProps}
         id={id}
       />
-      <label htmlFor={id} className='h-0 w-full pb-[100%]  absolute' />
+      <label htmlFor={id} className='h-0 w-full pb-[100%] top-0 absolute' />
     </div>
   )
 })
