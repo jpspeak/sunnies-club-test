@@ -43,9 +43,9 @@ export default function ResendVerifLink() {
     setIsSubmitting(true)
     try {
       const formdata = { email }
-      const { data } = await userService.sendAccountVerification(formdata)
+      await userService.sendAccountVerification(formdata)
       setResent(true)
-      saveTokenDateCreated(data.data.tokenDateCreated)
+      saveTokenDateCreated(moment().utc().toISOString())
       setIsSubmitting(false)
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'An error occurred.', {
