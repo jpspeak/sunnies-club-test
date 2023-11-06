@@ -6,7 +6,7 @@ import LogoIcon from '@/app/shared/components/icons/LogoIcon'
 export default async function Verify() {
   return (
     <MainContainer className='bg-red-700 pt-[60px] flex flex-col'>
-      <LogoIcon className='h-[60px] text-white mx-auto' />
+      <LogoIcon linkToHome className='h-[60px] text-white mx-auto' />
       <VerifyContainer />
     </MainContainer>
   )

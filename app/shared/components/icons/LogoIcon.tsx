@@ -1,12 +1,28 @@
 import React from 'react'
+import { useRouter } from 'next/navigation'
 
-export default function LogoIcon({ className }: { className?: string }) {
+export default function LogoIcon({
+  className,
+  linkToHome = false
+}: {
+  className?: string
+  linkToHome?: boolean
+}) {
+  const router = useRouter()
+
+  const handleClick = () => {
+    if (linkToHome) {
+      router.push('/')
+    }
+  }
+
   return (
     <svg
       viewBox='0 0 58 32'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
       className={className}
+      onClick={handleClick}
     >
       <g clipPath='url(#clip0_608_3710)'>
         <path

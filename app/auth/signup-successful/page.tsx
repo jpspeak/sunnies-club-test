@@ -22,7 +22,7 @@ export default function SignupSuccessful() {
         backButton={<TopNavBar.BackButton className='text-white' />}
         className='bg-transparent'
       />
-      <LogoIcon className='h-[60px] text-white mx-auto' />
+      <LogoIcon linkToHome className='h-[60px] text-white mx-auto' />
       <FormHeader
         title='Confirm your email'
         body="Your sign-up was successful. We've sent you an email to confirm your account."

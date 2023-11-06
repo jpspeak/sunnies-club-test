@@ -15,7 +15,7 @@ export default function ResetPassword() {
         backButton={<TopNavBar.BackButton className='text-white' />}
         className='bg-transparent'
       />
-      <LogoIcon className='h-[60px] text-white mx-auto' />
+      <LogoIcon linkToHome className='h-[60px] text-white mx-auto' />
       {resetPassSuccessful ? (
         <ChangePasswordSuccessful />
       ) : (

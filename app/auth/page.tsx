@@ -226,6 +226,7 @@ export default function Auth() {
             style={{ height: drawerHeight || '100%' }}
           >
             <LogoIcon
+              linkToHome
               className={twMerge(
                 'absolute h-[80px] text-white left-1/2 -translate-x-1/2 transition-all duration-500 scale-100',
                 view !== 'home' && 'scale-75'
