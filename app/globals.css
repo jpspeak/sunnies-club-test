@@ -81,8 +81,3 @@
 input::-webkit-date-and-time-value {
   text-align: left;
 }
-
-input:disabled {
-  -webkit-appearance: none;
-  @apply !opacity-100;
-}
