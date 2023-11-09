@@ -48,7 +48,7 @@ export const inputCva = cva(
       },
       disabled: {
         white: '',
-        neutral: '!text-soft-black-700'
+        neutral: '!text-soft-black-300'
       }
     },
     defaultVariants: {
