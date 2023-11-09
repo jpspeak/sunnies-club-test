@@ -84,5 +84,5 @@ input::-webkit-date-and-time-value {
 
 input:disabled {
   -webkit-appearance: none;
-  @apply !opacity-100 !text-inherit;
+  @apply !opacity-100 text-current;
 }
