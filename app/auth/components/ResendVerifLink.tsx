@@ -10,17 +10,12 @@ export default function ResendVerifLink() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const [resent, setResent] = useState<boolean>(false)
   const [countdown, setCountdown] = useState(0)
-  const [tokenDateCreated, saveTokenDateCreated] = useLocalStorage(
-    'tokenDateCreated',
-    ''
-  )
+  const [sentDate, saveSentDate] = useLocalStorage('sentDate', '')
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    if (tokenDateCreated) {
-      const timeDiffInSeconds = moment()
-        .utc()
-        .diff(moment(tokenDateCreated), 'seconds')
+    if (sentDate) {
+      const timeDiffInSeconds = moment().utc().diff(moment(sentDate), 'seconds')
 
       const retryAfterSeconds = 60
 
@@ -36,7 +31,7 @@ export default function ResendVerifLink() {
         setCountdown(0)
       }
     }
-  }, [tokenDateCreated])
+  }, [sentDate])
 
   const handleResendClick = async () => {
     const email = searchParams.get('email') || ''
@@ -45,7 +40,7 @@ export default function ResendVerifLink() {
       const formdata = { email }
       await userService.sendAccountVerification(formdata)
       setResent(true)
-      saveTokenDateCreated(moment().utc().toISOString())
+      saveSentDate(moment().utc().toISOString())
       setIsSubmitting(false)
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'An error occurred.', {

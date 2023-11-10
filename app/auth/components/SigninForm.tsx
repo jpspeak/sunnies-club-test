@@ -1,6 +1,6 @@
 'use client'
 
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useState } from 'react'
 import Input from '@/app/shared/components/form/Input'
 import PasswordInput from '@/app/shared/components/form/PasswordInput'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -15,6 +15,9 @@ import useAuthStore from '@/app/shared/hooks/useAuthStore'
 import authTokenService from '@/app/shared/services/authTokenService'
 import Checkbox from '@/app/shared/components/form/Checkbox'
 import { useLocalStorage } from 'usehooks-ts'
+import userService from '@/app/shared/services/api/userService'
+import moment from 'moment-timezone'
+import { useRouter } from 'next/navigation'
 
 type FormDataType = z.infer<typeof SigninFormSchema>
 
@@ -31,8 +34,14 @@ export default forwardRef<HTMLButtonElement, { containerClass?: string }>(
   function SigninForm({ containerClass }, submitButtonRef) {
     const signin = useAuthStore((state) => state.signin)
 
-    // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unused-vars
-    const [_, setRememberMe] = useLocalStorage('rememberMe', false)
+    const [, setRememberMe] = useLocalStorage('rememberMe', false)
+
+    const [, saveSentDate] = useLocalStorage('sentDate', '')
+
+    const router = useRouter()
+
+    const { setIsSubmitting } = useSigninStore((state) => state)
+    const [, setResending] = useState(false)
 
     const {
       register,
@@ -43,7 +52,20 @@ export default forwardRef<HTMLButtonElement, { containerClass?: string }>(
       resolver: zodResolver(SigninFormSchema)
     })
 
-    const { setIsSubmitting } = useSigninStore((state) => state)
+    const handleResendClick = async (email: string) => {
+      setResending(true)
+      try {
+        await userService.sendAccountVerification({ email })
+        saveSentDate(moment().utc().toISOString())
+        setResending(false)
+        router.push(`/auth/signup-successful?email=${email}`)
+      } catch (error: any) {
+        toast.error(error.response?.data?.message || 'An error occurred.', {
+          toastId: 'error'
+        })
+        setResending(false)
+      }
+    }
 
     const submit: SubmitHandler<FormDataType> = async (formdata) => {
       setIsSubmitting(true)
@@ -55,9 +77,33 @@ export default forwardRef<HTMLButtonElement, { containerClass?: string }>(
         signin()
         setIsSubmitting(false)
       } catch (error: any) {
-        toast.error(error.response?.data?.message || 'An error occurred.', {
-          toastId: 'error'
-        })
+        const unverified = error.response.status === 403
+        toast.error(
+          (
+            <>
+              <p>{error.response?.data?.message}</p>
+
+              {unverified && (
+                <>
+                  <br />
+                  <p>
+                    Didn&apos;t receive the email?{' '}
+                    <span
+                      className='underline cursor-pointer'
+                      onClick={() => handleResendClick(formdata.email)}
+                    >
+                      Resend
+                    </span>
+                  </p>
+                </>
+              )}
+            </>
+          ) || 'An error occurred.',
+          {
+            toastId: 'error',
+            autoClose: unverified ? false : 3000
+          }
+        )
         reset()
         setIsSubmitting(false)
         console.error(error)

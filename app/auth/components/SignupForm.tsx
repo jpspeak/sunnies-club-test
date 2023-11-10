@@ -69,11 +69,7 @@ export default forwardRef<HTMLButtonElement, { containerClass?: string }>(
 
     const router = useRouter()
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [tokenDateCreated, saveTokenDateCreated] = useLocalStorage(
-      'tokenDateCreated',
-      ''
-    )
+    const [, saveSentDate] = useLocalStorage('sentDate', '')
 
     const { setIsSubmitting } = useSignupStore((state) => state)
 
@@ -83,7 +79,7 @@ export default forwardRef<HTMLButtonElement, { containerClass?: string }>(
       setIsSubmitting(true)
       try {
         await authService.signup(formdata)
-        saveTokenDateCreated(moment().utc().toISOString())
+        saveSentDate(moment().utc().toISOString())
         setIsSubmitting(false)
         router.push(`/auth/signup-successful?email=${formdata.email}`)
       } catch (error: any) {
