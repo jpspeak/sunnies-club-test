@@ -97,7 +97,7 @@ export default function ProfileForm() {
         type='date'
         label='Birthday'
         error={errors.birthdate?.message}
-        disabled
+        readOnly
         {...register('birthdate')}
         className='mt-3'
       />
@@ -110,7 +110,7 @@ export default function ProfileForm() {
       <Input
         label='Email address'
         error={errors.email?.message}
-        disabled
+        readOnly
         {...register('email')}
         className='mt-3'
       />

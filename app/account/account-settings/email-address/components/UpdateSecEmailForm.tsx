@@ -84,14 +84,14 @@ export default function UpdateSecEmailForm() {
           type='email'
           label='Primary email address'
           error={errors.email?.message}
-          disabled
+          readOnly
           {...register('email')}
         />
         <Input
           type='email'
           label='Secondary email address'
           error={errors.secondaryEmail?.message}
-          disabled={!!user?.secondaryEmail}
+          readOnly={!!user?.secondaryEmail}
           {...register('secondaryEmail')}
           className='mt-6'
         />

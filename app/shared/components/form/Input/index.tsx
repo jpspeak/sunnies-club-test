@@ -46,9 +46,9 @@ export const inputCva = cva(
         white: ['text-white', 'border-b-white'],
         neutral: ['text-soft-black-700', 'border-b-soft-black-50']
       },
-      disabled: {
-        white: '',
-        neutral: '!text-soft-black-300'
+      readOnly: {
+        white: 'pointer-events-none',
+        neutral: '!text-soft-black-300 pointer-events-none'
       }
     },
     defaultVariants: {
@@ -61,7 +61,7 @@ export default forwardRef<
   HTMLInputElement,
   ComponentProps<'input'> & InputProps
 >(function Input(
-  { className, colorScheme = 'neutral', label, error, disabled, ...otherProps },
+  { className, colorScheme = 'neutral', label, error, readOnly, ...otherProps },
   ref
 ) {
   return (
@@ -70,13 +70,11 @@ export default forwardRef<
         <label className={twMerge(labelCva({ colorScheme }))}>{label}</label>
         <input
           ref={ref}
-          placeholder=' '
-          disabled={disabled}
           {...otherProps}
           className={twMerge(
             inputCva({
               colorScheme,
-              disabled: disabled ? colorScheme : undefined
+              readOnly: readOnly ? colorScheme : undefined
             })
           )}
         />
