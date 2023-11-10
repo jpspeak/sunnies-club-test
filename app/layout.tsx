@@ -8,7 +8,6 @@ import SSE from './shared/components/SSE'
 import ToastProvider from './shared/components/ToastProvider'
 import SwitchToMobileModal from './shared/components/SwitchToMobileModal'
 import Script from 'next/script'
-import NextProgressProvider from './shared/components/NextProgressProvider'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const poppins = Poppins({
@@ -56,26 +55,24 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${inter.variable} ${poppins.variable}`}>
-        <NextProgressProvider>
-          <SplashScreen>
-            <ToastProvider>
-              <SwitchToMobileModal />
-              <RequireAuth
-                except={[
-                  '/',
-                  '/auth',
-                  '/auth/signup-successful',
-                  '/account/verify',
-                  '/reset-password-verification',
-                  '/reset-password'
-                ]}
-              >
-                <SSE />
-                {children}
-              </RequireAuth>
-            </ToastProvider>
-          </SplashScreen>
-        </NextProgressProvider>
+        <SplashScreen>
+          <ToastProvider>
+            <SwitchToMobileModal />
+            <RequireAuth
+              except={[
+                '/',
+                '/auth',
+                '/auth/signup-successful',
+                '/account/verify',
+                '/reset-password-verification',
+                '/reset-password'
+              ]}
+            >
+              <SSE />
+              {children}
+            </RequireAuth>
+          </ToastProvider>
+        </SplashScreen>
         <Script
           id='fb-pixel'
           strategy='afterInteractive'
