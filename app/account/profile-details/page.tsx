@@ -7,7 +7,7 @@ export default function PersonalDetails() {
   return (
     <>
       <TopBar title='EDIT PROFILE' showBackNav />
-      <MainContainer className='pt-[50px] pb-[110px] px-4'>
+      <MainContainer className='pt-[50px] pb-[100px] px-4'>
         <ProfileForm />
       </MainContainer>
     </>

@@ -114,7 +114,7 @@ export default function ProfileForm() {
         {...register('email')}
         className='mt-3'
       />
-      <BottomBar noShadow>
+      <BottomBar noShadow className='pb-[40px]'>
         <Button
           type='submit'
           isLoading={isSubmitting}
