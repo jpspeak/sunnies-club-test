@@ -7,7 +7,7 @@ export default function BottomBar(
   return (
     <div
       className={twMerge(
-        `fixed bottom-0 w-full p-4 max-w-md left-1/2 -translate-x-1/2 bg-white ${
+        `fixed bottom-0 w-full p-4 pb-[24px] max-w-md left-1/2 -translate-x-1/2 bg-white ${
           !props.noShadow &&
           'shadow-[0px_-4px_8px_-2px_rgba(42,34,31,0.10),0px_-2px_4px_-2px_rgba(42,34,31,0.06)]'
         }`,
