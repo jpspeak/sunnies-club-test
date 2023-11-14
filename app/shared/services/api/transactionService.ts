@@ -31,6 +31,7 @@ export type OrderItem = {
   warehouseCode: string
   storeCode: string
   storeName: string
+  unitPrice: string
   total: string
   paymentDate: string
   claimablePoints: number

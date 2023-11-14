@@ -86,7 +86,9 @@ export default function Transaction() {
                     )}
                   </li>
                   <li className='text-right'>
-                    {addCommasWithCents(parseFloat(orderDetails.total))}
+                    {addCommasWithCents(
+                      parseFloat(orderDetails.unitPrice || orderDetails.total)
+                    )}
                   </li>
                   <li className='text-right'>
                     {addCommasWithCents(parseFloat(orderDetails.total))}
