@@ -136,7 +136,9 @@ export default function MyReward() {
               width={125}
               height={100}
               quality={100}
-              className='object-contain mx-auto'
+              className={`object-contain mx-auto  ${
+                myReward.isUsed && 'grayscale'
+              }`}
             />
           )}
         </div>
