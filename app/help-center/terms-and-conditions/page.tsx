@@ -75,7 +75,13 @@ export default function TermsAndConditions() {
             <p>Zalora​​</p>
           </li>
           <li>
-            <p>sunniesstudios.com​</p>
+            <a
+              href='https://sunniesstudios.com/'
+              target='_blank'
+              rel='noreferrer'
+            >
+              sunniesstudios.com​
+            </a>
           </li>
         </ul>
 
@@ -92,6 +98,15 @@ export default function TermsAndConditions() {
           </li>
           <li>
             <p>Earning of points will start from date of registration.​</p>
+          </li>
+          <li>
+            <p>
+              Sunnies Club vouchers cannot be used for Sunnies Guarantee
+              payments.​
+            </p>
+          </li>
+          <li>
+            <p>Inactive accounts for 1 year will be deactivated.​</p>
           </li>
         </ul>
 
