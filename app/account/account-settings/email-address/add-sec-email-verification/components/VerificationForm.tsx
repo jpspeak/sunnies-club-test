@@ -54,7 +54,7 @@ export default function VerificationForm() {
       <p className='mt-6 text-sm text-center text-soft-black-400'>
         Didn&apos;t receive the OTP? <ResendOTP />
       </p>
-      <BottomBar noShadow>
+      <BottomBar noShadow className='pb-[40px]'>
         <Button type='submit' isLoading={isSubmitting}>
           Verify
         </Button>

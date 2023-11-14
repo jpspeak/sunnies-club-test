@@ -95,7 +95,13 @@ export default function UpdateSecEmailForm() {
           {...register('secondaryEmail')}
           className='mt-6'
         />
-        <BottomBar noShadow>
+        <BottomBar noShadow className='pb-[40px]'>
+          <p className='p-3 mb-4 rounded bg-soft-black-50 text-soft-black-400 text-xxs'>
+            Start earning points with your Sunnies Studios in-store account. If
+            you did not register with your original account, please add the
+            email you used in-store under the secondary email address to
+            automatically score points.​
+          </p>
           <Button
             type='submit'
             isLoading={isSubmitting}

@@ -7,7 +7,7 @@ export default function AddSecEmailVerification() {
   return (
     <>
       <TopBar title='ACCOUNT SETTINGS' showBackNav className='px-4' />
-      <MainContainer className='pt-[50px] pb-[110px] px-4'>
+      <MainContainer className='pt-[50px] pb-[100px] px-4'>
         <VerificationForm />
       </MainContainer>
     </>
