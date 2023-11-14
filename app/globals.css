@@ -54,7 +54,7 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* React Toastify Custom Style */
+/* React Toastify Custom Style - START */
 .Toastify__toast-container {
   @apply !p-4 md:min-w-[27rem];
 }
@@ -76,6 +76,31 @@
 .Toastify__close-button {
   @apply !opacity-100;
 }
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.show {
+  animation: show 0.1s ease-out both;
+}
+
+.hide {
+  animation: hide 0.1s ease-in both;
+}
+/* React Toastify Custom Style - END */
 
 /* iOS Date input */
 input::-webkit-date-and-time-value {

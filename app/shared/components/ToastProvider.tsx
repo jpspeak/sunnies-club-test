@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { ToastContainer, Zoom } from 'react-toastify'
+import { ToastContainer, cssTransition } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 interface ToastProviderProps {
@@ -9,6 +9,12 @@ interface ToastProviderProps {
 }
 
 export default function ToastProvider({ children }: ToastProviderProps) {
+  const noAnimation = cssTransition({
+    enter: 'show',
+    exit: 'hide',
+    collapseDuration: 1
+  })
+
   return (
     <>
       {children}
@@ -21,7 +27,7 @@ export default function ToastProvider({ children }: ToastProviderProps) {
         closeOnClick
         pauseOnHover
         draggable
-        transition={Zoom}
+        transition={noAnimation}
       />
     </>
   )
