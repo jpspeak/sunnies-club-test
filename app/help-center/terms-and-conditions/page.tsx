@@ -63,6 +63,18 @@ export default function TermsAndConditions() {
             <p>Department Store​</p>
           </li>
           <li>
+            <p>Lazada​​</p>
+          </li>
+          <li>
+            <p>Shopee​​</p>
+          </li>
+          <li>
+            <p>Tiktok​​</p>
+          </li>
+          <li>
+            <p>Zalora​​</p>
+          </li>
+          <li>
             <p>sunniesstudios.com​</p>
           </li>
         </ul>
