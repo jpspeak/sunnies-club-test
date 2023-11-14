@@ -1,5 +1,6 @@
 'use client'
 
+import BottomBar from '@/app/shared/components/BottomBar'
 import ButtonLink from '@/app/shared/components/ButtonLink'
 import Center from '@/app/shared/components/Center'
 import FormHeader from '@/app/shared/components/FormHeader'
@@ -47,7 +48,7 @@ export default function VerifyContainer() {
           body='Congratulations! Your account has been successfully confirmed. You can now log in to our platform.'
           className='mt-[40px] px-[60px]'
         />
-        <div className='flex items-end pb-[40px] px-4 grow'>
+        <BottomBar className='bg-primary pb-[40px]' noShadow>
           <ButtonLink
             variant='outline'
             href='/auth?initialView=signin'
@@ -55,7 +56,7 @@ export default function VerifyContainer() {
           >
             Back to login
           </ButtonLink>
-        </div>
+        </BottomBar>
       </>
     )
   if (verifyError)
@@ -66,15 +67,15 @@ export default function VerifyContainer() {
           body={verifyError}
           className='mt-[40px] px-[60px]'
         />
-        <div className='flex items-end pb-[40px] px-4 grow'>
+        <BottomBar className='bg-primary pb-[40px]' noShadow>
           <ButtonLink
             variant='outline'
             href='/auth?initialView=signin'
-            className='mt-6 text-white'
+            className='text-white'
           >
             Back to login
           </ButtonLink>
-        </div>
+        </BottomBar>
       </>
     )
   return null
