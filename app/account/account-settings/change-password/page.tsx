@@ -7,7 +7,7 @@ export default function ChangePassword() {
   return (
     <>
       <TopBar title='ACCOUNT SETTINGS' showBackNav />
-      <MainContainer className='flex flex-col px-4 pt-[50px] pb-[110px]'>
+      <MainContainer className='flex flex-col px-4 pt-[50px] pb-[100px]'>
         <UpdatePasswordForm />
       </MainContainer>
     </>
