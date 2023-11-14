@@ -13,6 +13,7 @@ import { addCommasWithCents } from '@/app/shared/utils/addCommas'
 import Spinner from '@/app/shared/components/Spinner'
 import FetchError from '@/app/shared/components/FetchError'
 import utcToLocalMMDDYYYYHHMM from '@/app/shared/utils/utcToLocalMMDDYYYYHHMM'
+import BottomBar from '@/app/shared/components/BottomBar'
 
 export default function Transaction() {
   const { id: transactionId } = useParams()
@@ -109,17 +110,18 @@ export default function Transaction() {
             </span>
           </div>
         </div>
-
-        <div className='p-3 mx-4 rounded bg-soft-black-50 text-soft-black-400 text-xxs'>
-          Happy with your purchase? If not, you’re welcome to change your
-          Sunnies Studios product within 90 days of purchase.{' '}
-          <a
-            href='https://ph.sunniesstudios.com/pages/sunnies-guarantee'
-            className='leading-normal underline'
-          >
-            Learn more about Sunnies Guarantee.
-          </a>
-        </div>
+        <BottomBar className='pb-[40px]' noShadow>
+          <div className='p-3 rounded bg-soft-black-50 text-soft-black-400 text-xxs'>
+            Happy with your purchase? If not, you’re welcome to change your
+            Sunnies Studios product within 90 days of purchase.{' '}
+            <a
+              href='https://ph.sunniesstudios.com/pages/sunnies-guarantee'
+              className='leading-normal underline'
+            >
+              Learn more about Sunnies Guarantee.
+            </a>
+          </div>
+        </BottomBar>
       </>
     )
   }
@@ -127,7 +129,7 @@ export default function Transaction() {
   return (
     <>
       <TopBar title={transaction?.description} showBackNav />
-      <MainContainer className='pt-[50px] pb-[40px] flex flex-col justify-between'>
+      <MainContainer className='pt-[50px] pb-[124px] flex flex-col justify-between'>
         {render()}
       </MainContainer>
     </>
