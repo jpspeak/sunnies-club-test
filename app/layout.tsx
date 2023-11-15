@@ -44,7 +44,22 @@ export const metadata: Metadata = {
     { rel: 'icon', sizes: '32x32', url: '/icons/site/favicon-32x32.png' },
     { rel: 'icon', sizes: '16x16', url: '/icons/site/favicon-16x16.png' }
   ],
-  keywords: ['Sunnies Club', 'Loyalty Program', 'Earn Points', 'Redeem Points']
+  keywords: ['Sunnies Club', 'Loyalty Program', 'Earn Points', 'Redeem Points'],
+  openGraph: {
+    title: APP_NAME,
+    description: APP_DESCRIPTION,
+    url: 'https://sunniesclub.com',
+    siteName: 'Sunnies Club',
+    images: [
+      {
+        url: 'https://www.sunniesclub.com/images/auth-image.png',
+        width: 1800,
+        height: 1600,
+        alt: 'Sunnies Club'
+      }
+    ],
+    type: 'website'
+  }
 }
 
 export default function RootLayout({
