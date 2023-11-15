@@ -36,11 +36,22 @@ module.exports = withPWA({
   },
   async redirects() {
     return [
-      {
-        source: '/',
-        destination: '/dashboard',
-        permanent: true
-      }
+      process.env.MAINTENANCE_MODE === '1'
+        ? {
+            source: '/((?!maintenance).*)',
+            destination: '/maintenance.html',
+            permanent: false
+          }
+        : ({
+            source: '/',
+            destination: '/dashboard',
+            permanent: true
+          },
+          {
+            source: '/maintenance.html',
+            destination: '/dashboard',
+            permanent: true
+          })
     ]
   },
   reactStrictMode: false
