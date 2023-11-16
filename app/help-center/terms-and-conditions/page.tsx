@@ -75,6 +75,12 @@ export default function TermsAndConditions() {
             <p>Zalora​​</p>
           </li>
           <li>
+            <p>Sunnies Coffee​</p>
+          </li>
+          <li>
+            <p>Sunnies Face​</p>
+          </li>
+          <li>
             <a
               href='https://sunniesstudios.com/'
               target='_blank'
