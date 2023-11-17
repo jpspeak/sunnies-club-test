@@ -29,7 +29,7 @@ export default function UserCard() {
   )
 
   const memberSince = user ? (
-    utcToLocalMMDDYY(user.createdAt)
+    utcToLocalMMDDYY(user.joinedDate || user.createdAt)
   ) : (
     <Skeleton width={80} />
   )

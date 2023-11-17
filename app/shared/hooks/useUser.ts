@@ -13,6 +13,7 @@ export type User = {
   birthdate: string
   points: number
   mobileNumber?: string
+  joinedDate: string
   createdAt: string
   updatedAt: string
 }
