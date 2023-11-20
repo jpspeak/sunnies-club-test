@@ -52,9 +52,9 @@ export const metadata: Metadata = {
     siteName: 'Sunnies Club',
     images: [
       {
-        url: 'https://www.sunniesclub.com/images/auth-image.png',
-        width: 1800,
-        height: 1600,
+        url: 'https://www.sunniesclub.com/images/og-image.png',
+        width: 1200,
+        height: 630,
         alt: 'Sunnies Club'
       }
     ],
