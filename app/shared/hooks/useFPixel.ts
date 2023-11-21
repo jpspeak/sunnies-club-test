@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 
-type EventName = 'PageView'
+type EventName = 'PageView' | 'Lead'
 
 const useFPixel = ({ eventName }: { eventName: EventName }) => {
   useEffect(() => {
