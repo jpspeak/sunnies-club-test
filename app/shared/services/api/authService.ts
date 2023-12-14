@@ -31,7 +31,10 @@ const signup = (formdata: SignupFormData) =>
 const signin = (formdata: SigninFormData) =>
   apiClient.post<SignInResData>('/auth/sign-in', formdata)
 
-const signout = () => apiClient.post('/auth/sign-out')
+const signout = () =>
+  apiClient.post('/auth/sign-out', {
+    refreshToken: authTokenService.getRefreshToken()
+  })
 
 const refreshToken = () =>
   apiClientRefreshToken.post('/auth/refresh-token', {
