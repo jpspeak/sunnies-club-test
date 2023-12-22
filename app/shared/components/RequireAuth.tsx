@@ -9,11 +9,13 @@ import authService from '../services/api/authService'
 
 type RequireAuthProps = {
   except: string[]
+  exceptNoRedirect?: string[]
 }
 
 export default function RequireAuth({
   children,
-  except
+  except,
+  exceptNoRedirect
 }: PropsWithChildren<RequireAuthProps>): JSX.Element | null {
   const router = useRouter()
   const pathname = usePathname()
@@ -57,7 +59,11 @@ export default function RequireAuth({
     router.replace('/auth')
     return null
   }
-  if (isAuthenticated && except.includes(pathname)) {
+  if (
+    isAuthenticated &&
+    except.includes(pathname) &&
+    !exceptNoRedirect?.includes(pathname)
+  ) {
     router.replace('/dashboard')
     return null
   }

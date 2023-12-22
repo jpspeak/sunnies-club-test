@@ -77,7 +77,9 @@ export default forwardRef<HTMLButtonElement, { containerClass?: string }>(
         signin()
         setIsSubmitting(false)
       } catch (error: any) {
-        const unverified = error.response.status === 403
+        const unverified = error.response?.data?.message
+          ?.toLowerCase()
+          .includes('unverified')
         toast.error(
           (
             <>

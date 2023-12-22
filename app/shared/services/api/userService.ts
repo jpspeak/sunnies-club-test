@@ -44,6 +44,11 @@ const sendAccountVerification = (formdata: { email: string }) =>
 const verifyAccount = (token: string) =>
   apiClient.post(`/users/account/verify?verificationToken=${token}`)
 
+const verifySecondaryEmail = (token: string) =>
+  apiClient.post(
+    `/users/account/verify-secondary-email?verificationToken=${token}`
+  )
+
 const updatePassword = (formdata: UpdatePwdFormData) =>
   apiClient.post('/users/password/update', formdata)
 
@@ -54,6 +59,7 @@ const userService = {
   resetPassword,
   sendAccountVerification,
   verifyAccount,
+  verifySecondaryEmail,
   updateProfile,
   updatePassword
 }

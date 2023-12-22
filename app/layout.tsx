@@ -82,6 +82,7 @@ export default function RootLayout({
                 '/reset-password-verification',
                 '/reset-password'
               ]}
+              exceptNoRedirect={['/account/verify-secondary-email']}
             >
               <SSE />
               {children}
