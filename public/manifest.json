@@ -8,19 +8,19 @@
   "short_name": "Sunnies Club",
   "icons": [
     {
-      "src": "icons/site/icon-256x256.png",
+      "src": "icons/site/icon-256x256.jpg",
       "sizes": "256x256",
-      "type": "image/png"
+      "type": "image/jpeg"
     },
     {
-      "src": "icons/site/icon-384x384.png",
+      "src": "icons/site/icon-384x384.jpg",
       "sizes": "384x384",
-      "type": "image/png"
+      "type": "image/jpeg"
     },
     {
-      "src": "icons/site/icon-512x512.png",
+      "src": "icons/site/icon-512x512.jpg",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/jpeg"
     }
   ]
 }
