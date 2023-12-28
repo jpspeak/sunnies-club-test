@@ -38,6 +38,7 @@ export default function Modal({
                 widthMaxContent && 'w-max'
               }`
             )}
+            onClick={(e) => e.stopPropagation()}
           >
             {children}
           </div>
