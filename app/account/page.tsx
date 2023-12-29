@@ -10,18 +10,6 @@ export default function Account() {
       <MainContainer className='px-4 pt-4 pb-[110px]'>
         <UserCard />
         <NavItem
-          href='/account/profile-details'
-          className='mt-4 border-b border-soft-black-50'
-        >
-          Personal information
-        </NavItem>
-        <NavItem
-          href='/account/my-rewards'
-          className='border-b border-soft-black-50'
-        >
-          My rewards
-        </NavItem>
-        <NavItem
           href='/account/transactions'
           className='border-b border-soft-black-50'
         >
