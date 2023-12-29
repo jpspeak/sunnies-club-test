@@ -28,13 +28,15 @@ function PopUpModal({ url, image }: { url: string; image: string }) {
         >
           <X className='h-[14px] w-[14px]' />
         </button>
-        <Image
-          alt={url}
-          src={image}
-          height={600}
-          width={400}
-          className='w-full'
-        />
+        <a href={url} target='_blank' rel='noreferrer'>
+          <Image
+            alt={url}
+            src={image}
+            height={600}
+            width={400}
+            className='w-full'
+          />
+        </a>
       </div>
     </Modal>
   )
