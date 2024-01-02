@@ -76,7 +76,7 @@ export default function UserCard() {
             >
               <Link
                 href={link.href}
-                className='flex items-center justify-center p-3 text-xs text-blue-500 gap-[6px]'
+                className='flex items-center justify-center p-3 text-xs text-red-700 gap-[6px]'
               >
                 <Icon /> <span>{link.label}</span>
               </Link>
