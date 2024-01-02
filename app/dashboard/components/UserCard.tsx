@@ -12,8 +12,9 @@ import AccountIcon from '@/app/shared/components/icons/AccountIcon'
 import CoinIcon from '@/app/shared/components/icons/CoinIcon'
 import { addCommas } from '@/app/shared/utils/addCommas'
 import utcToLocalMMDDYY from '@/app/shared/utils/utcToLocalMMDDYY'
+import { twMerge } from 'tailwind-merge'
 
-export default function UserCard() {
+export default function UserCard({ noLinks }: { noLinks?: boolean }) {
   const { user } = useUser()
 
   const fullname = user ? (
@@ -53,7 +54,12 @@ export default function UserCard() {
         <LogoIcon className='h-8 text-red-700' />
       </div>
       <p className='mt-[32px] px-4 text-sm font-bold'>{fullname}</p>
-      <div className='grid grid-cols-2 gap-1 px-4 mt-4'>
+      <div
+        className={twMerge(
+          'grid grid-cols-2 gap-1 px-4 mt-4',
+          noLinks && 'pb-4'
+        )}
+      >
         <div className='flex flex-col'>
           <p className='text-xxs text-soft-black-400'>POINTS BALANCE</p>
           <div className='flex items-center gap-1 mt-1'>
@@ -66,24 +72,26 @@ export default function UserCard() {
           <p className='mt-1 text-sm font-bold'>{memberSince}</p>
         </div>
       </div>
-      <ul className='grid grid-cols-2 mt-4'>
-        {links.map((link) => {
-          const Icon = link.icon
-          return (
-            <li
-              key={link.href}
-              className='[&:not(:last-child)]:border-r-[1px] border-t-[1px] border-blue-50'
-            >
-              <Link
-                href={link.href}
-                className='flex items-center justify-center p-3 text-xs text-red-700 gap-[6px]'
+      {!noLinks && (
+        <ul className='grid grid-cols-2 mt-4'>
+          {links.map((link) => {
+            const Icon = link.icon
+            return (
+              <li
+                key={link.href}
+                className='[&:not(:last-child)]:border-r-[1px] border-t-[1px] border-blue-50'
               >
-                <Icon /> <span>{link.label}</span>
-              </Link>
-            </li>
-          )
-        })}
-      </ul>
+                <Link
+                  href={link.href}
+                  className='flex items-center justify-center p-3 text-xs text-red-700 gap-[6px]'
+                >
+                  <Icon /> <span>{link.label}</span>
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      )}
     </div>
   )
 }
