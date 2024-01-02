@@ -32,9 +32,10 @@ function PopUpModal({ url, image }: { url: string; image: string }) {
           <Image
             alt={url}
             src={image}
-            height={600}
-            width={400}
-            className='w-full'
+            height={0}
+            width={0}
+            quality={100}
+            className='w-full max-h-[600px] object-cover'
           />
         </a>
       </div>
