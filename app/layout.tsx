@@ -8,6 +8,7 @@ import SSE from './shared/components/SSE'
 import ToastProvider from './shared/components/ToastProvider'
 import SwitchToMobileModal from './shared/components/SwitchToMobileModal'
 import Script from 'next/script'
+import PopUpsContainer from './dashboard/components/PopUpsContainer'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const poppins = Poppins({
@@ -73,6 +74,7 @@ export default function RootLayout({
         <SplashScreen>
           <ToastProvider>
             <SwitchToMobileModal />
+            <PopUpsContainer />
             <RequireAuth
               except={[
                 '/',
