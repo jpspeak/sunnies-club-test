@@ -6,6 +6,7 @@ import popUpService from '@/app/shared/services/api/popUpService'
 import Image from 'next/image'
 import useSWR from 'swr'
 import { X } from 'lucide-react'
+import useAuthStore from '@/app/shared/hooks/useAuthStore'
 
 function PopUpModal({ url, image }: { url: string; image: string }) {
   const [show, setShow] = useState(true)
@@ -44,11 +45,13 @@ function PopUpModal({ url, image }: { url: string; image: string }) {
 }
 
 function PopUpsContainer() {
+  const { isAuthenticated } = useAuthStore((state) => state)
+
   const { data: popUps, error: errorPopUps } = useSWR(`/pop-ups`, () =>
     popUpService.getPopUps().then((res) => res.data)
   )
 
-  if (errorPopUps) return null
+  if (!isAuthenticated || errorPopUps) return null
   return popUps?.map((popUp) => (
     <PopUpModal key={popUp.url} url={popUp.url} image={popUp.image} />
   ))
