@@ -40,6 +40,11 @@ module.exports = withPWA({
         source: '/',
         destination: '/dashboard',
         permanent: true
+      },
+      {
+        source: '/((?!maintenance).*)',
+        destination: '/maintenance.html',
+        permanent: false //!!!IMPORTANT!!!
       }
     ]
   },
